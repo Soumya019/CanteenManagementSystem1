@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">BT LED Controller</string>
+
+    <!-- Connection -->
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="status_connected">Connected</string>
+    <string name="no_device">No device</string>
+    <string name="not_connected">Not connected to a device</string>
+    <string name="bluetooth_unavailable">This device does not support Bluetooth</string>
+    <string name="bluetooth_required">Bluetooth must be enabled to connect</string>
+    <string name="permissions_required">Bluetooth permissions are required to find and connect to LED controllers</string>
+
+    <!-- Device picker -->
+    <string name="select_device">Select a device</string>
+    <string name="scan_for_devices">Scan</string>
+    <string name="stop_scan">Stop</string>
+    <string name="no_paired_devices">No paired devices. Tap Scan to discover nearby devices, or pair your module (e.g. HC-05, PIN 1234) in system Bluetooth settings.</string>
+    <string name="unknown_device">Unknown device</string>
+    <string name="device_paired">Paired</string>
+    <string name="device_new">New</string>
+
+    <!-- Controls -->
+    <string name="led_power">LED power</string>
+    <string name="brightness">Brightness</string>
+    <string name="colors_and_effects">Colors &amp; effects</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_white">White</string>
+    <string name="blink">Blink</string>
+    <string name="custom_command_hint">Custom command</string>
+    <string name="send">Send</string>
+
+    <!-- Log -->
+    <string name="log_title">Activity log</string>
+    <string name="log_connecting">Connecting to %1$s…</string>
+    <string name="log_connected">Connected to %1$s</string>
+    <string name="log_disconnected">Disconnected</string>
+    <string name="log_sent">Sent: %1$s</string>
+    <string name="log_received">Received: %1$s</string>
+</resources>
