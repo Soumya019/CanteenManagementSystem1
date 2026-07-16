@@ -2,3 +2,4 @@ icons/
 cards/
 photos/
 fetch_log.txt
+__pycache__/
