@@ -31,6 +31,13 @@ from reportlab.platypus import (
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ICON_DIR = os.path.join(HERE, "icons")
+PHOTO_DIR = os.path.join(HERE, "photos")
+CARD_DIR = os.path.join(HERE, "cards")
+
+try:
+    from photo_queries import ITEM_PHOTO
+except ImportError:
+    ITEM_PHOTO = {}
 FONT_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
@@ -459,6 +466,28 @@ GLYPHS = {
 }
 
 
+def make_photo_card(path, photo_path, label=None):
+    """Compose a real product photo onto a white card with a spec chip."""
+    img = Image.new("RGBA", (S, S), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([8, 8, S - 8, S - 8], radius=52, fill=(255, 255, 255),
+                        outline=(40, 40, 40, 70), width=3)
+    photo = Image.open(photo_path).convert("RGB")
+    box_w, box_h = S - 72, S - 150 if label else S - 88
+    photo.thumbnail((box_w, box_h), Image.LANCZOS)
+    px = (S - photo.size[0]) // 2
+    py = 36 + (box_h - photo.size[1]) // 2
+    mask = Image.new("L", photo.size, 255)
+    img.paste(photo, (px, py), mask)
+    if label:
+        tw = _font(38).getlength(label)
+        d.rounded_rectangle([S / 2 - tw / 2 - 22, 500, S / 2 + tw / 2 + 22, 564],
+                            radius=30, fill=(58, 63, 69, 235))
+        _ctext(d, (S / 2, 531), label, 38, "#FFFFFF")
+    img = img.resize((OUT, OUT), Image.LANCZOS)
+    img.save(path)
+
+
 def make_icon(path, kind, brand=None, label=None, **kw):
     b = BRANDS[brand]
     bg = _rgb(b["bg"])
@@ -882,9 +911,10 @@ def cover_flowables(total_items):
         "the ledger, so this manual is safe to show or keep at the counter.",
         "Loose pieces (screws, clips, switches sold singly from a box) follow the "
         "per-piece rate printed here, even when the carton shows a pack price.",
-        "The pictures are colour-matched illustrations of the packaging on your "
-        "shelves (drawn from your shop photos) — match the box colour and brand "
-        "name to find the item quickly.",
+        "Pictures are real product photographs of the brands stocked on your "
+        "shelves (MAGIK, PRITAM, HEERA, RK Gold, Z4 Kabel, VELOX, Aastha and "
+        "others), sourced online; a few generic loose items use a matching "
+        "representative photo or illustration.",
     ]
     for tp in tips:
         els.append(Paragraph("•  " + tp, ParagraphStyle(
@@ -915,16 +945,26 @@ def cover_flowables(total_items):
 
 def build(outpath):
     os.makedirs(ICON_DIR, exist_ok=True)
+    os.makedirs(CARD_DIR, exist_ok=True)
 
-    # render icons
-    n_icons = 0
+    # render one card per item: real product photo when available,
+    # drawn illustration as fallback
+    n_photo = n_icon = 0
     for si, (title, col, items) in enumerate(SECTIONS):
         for ii, it in enumerate(items):
-            p = os.path.join(ICON_DIR, f"s{si}_{ii}.png")
-            make_icon(p, it["kind"], it["brand"], it["label"], **it["kw"])
+            photo_key = ITEM_PHOTO.get(it["name"])
+            photo_path = (os.path.join(PHOTO_DIR, f"{photo_key}.png")
+                          if photo_key else None)
+            if photo_path and os.path.exists(photo_path):
+                p = os.path.join(CARD_DIR, f"s{si}_{ii}.png")
+                make_photo_card(p, photo_path, it["label"])
+                n_photo += 1
+            else:
+                p = os.path.join(ICON_DIR, f"s{si}_{ii}.png")
+                make_icon(p, it["kind"], it["brand"], it["label"], **it["kw"])
+                n_icon += 1
             it["icon"] = p
-            n_icons += 1
-    print(f"rendered {n_icons} icons")
+    print(f"rendered {n_photo} photo cards, {n_icon} icon fallbacks")
 
     doc = BaseDocTemplate(outpath, pagesize=A4,
                           leftMargin=15 * mm, rightMargin=15 * mm,
