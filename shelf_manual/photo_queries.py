@@ -179,6 +179,11 @@ ITEM_PHOTO = {
     "9W Slim LED Panel Light (AC)": "panel_9w",
     "12W Slim LED Panel Light": "panel_12w",
     "20W LED Tube Light / Batten": "batten_20w",
+    # batten_20w/24w/36w/40w are cropped from the shop's own photos, not
+    # fetched from the web — see the batten uploads from 20-Jul-2026
+    "24W LED Batten (Maximo Prime NEO)": "batten_24w",
+    "36W LED Batten (Maximo Prime NEO)": "batten_36w",
+    "40W LED Batten (Maximo Ultra Prime)": "batten_40w",
     "24W LED Downlight (DO)": "downlight_24w",
     "36W LED Downlight (DO)": "downlight_36w",
     "40W LED Downlight (DO)": "downlight_40w",

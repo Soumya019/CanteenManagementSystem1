@@ -473,6 +473,16 @@ def make_photo_card(path, photo_path, label=None):
     d.rounded_rectangle([8, 8, S - 8, S - 8], radius=52, fill=(255, 255, 255),
                         outline=(40, 40, 40, 70), width=3)
     photo = Image.open(photo_path).convert("RGB")
+    if photo.size[0] > 4 * photo.size[1]:
+        # ultra-wide strip (e.g. batten box face): split and stack halves
+        w, h = photo.size
+        top = photo.crop((0, 0, w // 2, h))
+        bot = photo.crop((w // 2, 0, w, h))
+        gap = h // 6
+        stacked = Image.new("RGB", (w // 2, 2 * h + gap), (255, 255, 255))
+        stacked.paste(top, (0, 0))
+        stacked.paste(bot, (0, h + gap))
+        photo = stacked
     box_w, box_h = S - 72, S - 150 if label else S - 88
     photo.thumbnail((box_w, box_h), Image.LANCZOS)
     px = (S - photo.size[0]) // 2
@@ -590,7 +600,13 @@ SECTIONS = [
         item("12W Slim LED Panel Light", 285, "pc", "panel", None, "12W",
              sub="Slim ceiling panel light"),
         item("20W LED Tube Light / Batten", 110, "pc", "tube", "ultima", "20W",
-             sub="ULTIMA Square Sleek cartons — top shelf"),
+             sub="MAGIK Ultima Square Sleek cartons — top shelf"),
+        item("24W LED Batten (Maximo Prime NEO)", 165, "pc", "tube", "magik",
+             "24W", sub="MAGIK Maximo Prime NEO — T5 batten, 2400 lm"),
+        item("36W LED Batten (Maximo Prime NEO)", 300, "pc", "tube", "magik",
+             "36W", sub="MAGIK Maximo Prime NEO — T5 batten, 3300 lm"),
+        item("40W LED Batten (Maximo Ultra Prime)", 365, "pc", "tube", "magik",
+             "40W", sub="MAGIK Maximo Ultra Prime batten"),
         item("24W LED Downlight (DO)", 165, "pc", "downlight", None, "24W",
              sub="Recessed LED downlight"),
         item("36W LED Downlight (DO)", 300, "pc", "downlight", None, "36W",
@@ -858,7 +874,7 @@ def footer(canvas, doc):
     canvas.setFillColor(GREY)
     canvas.drawString(15 * mm, 8 * mm,
                       "Garia Station Electric Hub  •  Counter Sales Manual  •  "
-                      "prices as per stock ledger 13-Jul-2026")
+                      "prices per stock ledger 13-Jul-2026 + shop additions")
     canvas.drawRightString(A4[0] - 15 * mm, 8 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
