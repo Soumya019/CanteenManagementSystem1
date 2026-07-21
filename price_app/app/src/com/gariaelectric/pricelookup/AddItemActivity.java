@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 /** Form for the shopkeeper to add a new item (name, price, unit, category,
  *  optional photo picked from the gallery). */
@@ -29,7 +30,13 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     private EditText nameBox, priceBox;
     private Spinner unitSpin, catSpin;
     private ImageView preview;
+    private Button findBtn, saveBtn;
     private String photoName = "";
+    private boolean saved = false;
+    private boolean busy = false;
+    private List<String> webCandidates;
+    private int webIndex = 0;
+    private String lastQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +60,29 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         catSpin.setAdapter(simpleAdapter(cats));
 
         Button pick = findViewById(R.id.add_pick_photo);
-        Button save = findViewById(R.id.add_save);
+        findBtn = findViewById(R.id.add_find_photo);
+        saveBtn = findViewById(R.id.add_save);
         pick.setOnClickListener(this);
-        save.setOnClickListener(this);
+        findBtn.setOnClickListener(this);
+        saveBtn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // don't leave an orphan photo file if the form was abandoned
+        if (!saved && !photoName.isEmpty()) {
+            Photos.dropThumb(photoName);
+            Photos.userFile(this, photoName).delete();
+        }
+    }
+
+    private void replacePhoto(String newName) {
+        if (!photoName.isEmpty()) {
+            Photos.dropThumb(photoName);
+            Photos.userFile(this, photoName).delete();
+        }
+        photoName = newName == null ? "" : newName;
     }
 
     private ArrayAdapter<String> simpleAdapter(String[] values) {
@@ -74,9 +101,59 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
             startActivityForResult(
                     Intent.createChooser(intent, getString(R.string.add_pick_photo)),
                     REQ_PICK);
+        } else if (v.getId() == R.id.add_find_photo) {
+            findPhotoOnline();
         } else if (v.getId() == R.id.add_save) {
             saveItem();
         }
+    }
+
+    /** Search the web for the typed item name; each tap shows the next
+     *  candidate photo. */
+    private void findPhotoOnline() {
+        final String name = nameBox.getText().toString().trim();
+        if (name.isEmpty()) {
+            Toast.makeText(this, R.string.need_name_first, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (busy) return;
+        busy = true;
+        findBtn.setEnabled(false);
+        findBtn.setText(R.string.searching_photo);
+        new Thread(new Runnable() {
+            @Override public void run() {
+                if (webCandidates == null || !name.equals(lastQuery)) {
+                    webCandidates = PhotoSearch.search(name + " electrical");
+                    webIndex = 0;
+                    lastQuery = name;
+                }
+                String got = null;
+                while (webIndex < webCandidates.size() && got == null) {
+                    got = PhotoSearch.download(AddItemActivity.this,
+                            webCandidates.get(webIndex));
+                    webIndex++;
+                }
+                if (got == null) webCandidates = null;  // allow re-search
+                final String photo = got;
+                runOnUiThread(new Runnable() {
+                    @Override public void run() {
+                        busy = false;
+                        findBtn.setEnabled(true);
+                        findBtn.setText(R.string.find_photo);
+                        if (photo != null) {
+                            replacePhoto(photo);
+                            preview.setImageBitmap(
+                                    Photos.decode(AddItemActivity.this, photo, 640));
+                            Toast.makeText(AddItemActivity.this,
+                                    R.string.photo_found, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AddItemActivity.this,
+                                    R.string.photo_not_found, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
@@ -105,7 +182,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                     Photos.userFile(this, name));
             bmp.compress(Bitmap.CompressFormat.JPEG, 88, out);
             out.close();
-            photoName = name;
+            replacePhoto(name);
             preview.setImageBitmap(bmp);
         } catch (Exception e) {
             Toast.makeText(this, "Photo failed: " + e.getMessage(),
@@ -114,19 +191,56 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     }
 
     private void saveItem() {
-        String name = nameBox.getText().toString().trim();
+        final String name = nameBox.getText().toString().trim();
         String priceStr = priceBox.getText().toString().trim();
         if (name.isEmpty()) {
             Toast.makeText(this, R.string.add_need_name, Toast.LENGTH_SHORT).show();
             return;
         }
-        int price;
+        final int price;
         try {
             price = Integer.parseInt(priceStr);
         } catch (NumberFormatException e) {
             Toast.makeText(this, R.string.add_need_price, Toast.LENGTH_SHORT).show();
             return;
         }
+        if (photoName.isEmpty()) {
+            // no photo chosen: search the web for one, then save
+            if (busy) return;
+            busy = true;
+            saveBtn.setEnabled(false);
+            saveBtn.setText(R.string.searching_photo);
+            new Thread(new Runnable() {
+                @Override public void run() {
+                    List<String> cands = PhotoSearch.search(name + " electrical");
+                    String got = null;
+                    for (int i = 0; i < cands.size() && i < 4 && got == null; i++) {
+                        got = PhotoSearch.download(AddItemActivity.this, cands.get(i));
+                    }
+                    final String photo = got;
+                    runOnUiThread(new Runnable() {
+                        @Override public void run() {
+                            busy = false;
+                            saveBtn.setEnabled(true);
+                            saveBtn.setText(R.string.add_save);
+                            if (photo != null) {
+                                photoName = photo;
+                            } else {
+                                Toast.makeText(AddItemActivity.this,
+                                        R.string.photo_auto_missing,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            doSave(name, price);
+                        }
+                    });
+                }
+            }).start();
+            return;
+        }
+        doSave(name, price);
+    }
+
+    private void doSave(String name, int price) {
         try {
             JSONObject o = new JSONObject();
             o.put("id", System.currentTimeMillis());
@@ -137,6 +251,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
             o.put("kw", name);
             o.put("photo", photoName);
             UserItems.add(this, o);
+            saved = true;
             Toast.makeText(this, R.string.add_saved, Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK);
             finish();

@@ -80,13 +80,35 @@
                     android:scaleType="fitCenter"
                     android:contentDescription="@string/photo_desc" />
 
-                <Button
-                    android:id="@+id/add_pick_photo"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="14dp"
-                    android:text="@string/add_pick_photo" />
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/add_pick_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_pick_photo" />
+
+                    <Button
+                        android:id="@+id/add_find_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#26466D"
+                        android:textColor="#FFFFFF"
+                        android:text="@string/find_photo" />
+                </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:text="@string/auto_photo_note"
+                android:textColor="#5F666E"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/add_save"

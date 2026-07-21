@@ -19,6 +19,16 @@ Since v1.1:
   searchable like any stock item, and can be removed by long-pressing
   the row.
 
+Since v1.2:
+
+- **Automatic photo for new items** — if you save a new item without
+  attaching a photo, the app searches the internet (DuckDuckGo image
+  search, no API key) for that item and attaches the best photo it finds.
+  A "Find Photo Online" button also lets you preview the photo first and
+  tap again to cycle through alternatives. This is the app's only use of
+  the internet; if the phone is offline the item simply saves without a
+  photo.
+
 ## Install (the easy way)
 
 1. Copy `GariaElectricPrices.apk` to the phone (WhatsApp to yourself,

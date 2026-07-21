@@ -30,4 +30,11 @@
     <string name="delete_no">Cancel</string>
     <string name="deleted">Item deleted</string>
     <string name="my_items_cat">My Items</string>
+    <string name="find_photo">Find Photo Online</string>
+    <string name="searching_photo">Searching…</string>
+    <string name="photo_found">Photo found — tap again for a different one</string>
+    <string name="photo_not_found">No photo found online — you can use Choose Photo</string>
+    <string name="photo_auto_missing">No photo found online — item saved without photo</string>
+    <string name="need_name_first">Enter the item name first</string>
+    <string name="auto_photo_note">If you save without a photo, the app will search the internet for this item and attach the best photo automatically (needs internet at that moment).</string>
 </resources>
