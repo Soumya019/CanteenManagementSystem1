@@ -12,9 +12,14 @@ import os
 import re
 import sys
 
+from PIL import Image
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "shelf_manual"))
 from generate_manual import SECTIONS  # noqa: E402
+from photo_queries import ITEM_PHOTO  # noqa: E402
+
+PHOTO_SRC = os.path.join(HERE, "..", "shelf_manual", "photos")
 
 # extra spoken-word aliases attached when the pattern appears in the name
 ALIASES = [
@@ -78,22 +83,44 @@ def keywords(name, sub, label):
     return f"{text} {' '.join(kws)}"
 
 
+def export_photo(key):
+    """Convert shelf_manual/photos/<key>.png to a compact JPEG app asset.
+    Returns the asset-relative path, or "" if the source is missing."""
+    src = os.path.join(PHOTO_SRC, f"{key}.png")
+    if not os.path.exists(src):
+        return ""
+    dst_dir = os.path.join(HERE, "app", "assets", "photos")
+    os.makedirs(dst_dir, exist_ok=True)
+    dst = os.path.join(dst_dir, f"{key}.jpg")
+    if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
+        im = Image.open(src).convert("RGB")
+        im.thumbnail((640, 640), Image.LANCZOS)
+        im.save(dst, "JPEG", quality=80, optimize=True)
+    return f"photos/{key}.jpg"
+
+
 def main():
     items = []
+    exported = set()
     for title, _color, sec_items in SECTIONS:
         for it in sec_items:
+            key = ITEM_PHOTO.get(it["name"])
+            photo = export_photo(key) if key else ""
+            if photo:
+                exported.add(key)
             items.append({
                 "name": it["name"],
                 "price": it["price"],
                 "unit": UNIT_WORD[it["unit"]],
                 "cat": title,
                 "kw": keywords(it["name"], it.get("sub"), it.get("label")),
+                "photo": photo,
             })
     out = os.path.join(HERE, "app", "assets", "items.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w") as f:
         json.dump({"items": items}, f, ensure_ascii=False, indent=1)
-    print(f"wrote {out} with {len(items)} items")
+    print(f"wrote {out} with {len(items)} items, {len(exported)} photos")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FieldLabel">
+        <item name="android:textColor">#1B2A4A</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+</resources>

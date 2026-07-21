@@ -1,9 +1,12 @@
 package com.gariaelectric.pricelookup;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
@@ -11,9 +14,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,18 +36,24 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends Activity
-        implements TextWatcher, View.OnClickListener {
+        implements TextWatcher, View.OnClickListener,
+        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private static final int REQ_SPEECH = 71;
+    private static final int REQ_ADD = 72;
 
     private static class Item {
-        final String name, unit, cat, search;
+        final String name, unit, cat, search, photo;
         final int price;
-        Item(String name, int price, String unit, String cat, String kw) {
+        final long id;  // 0 for built-in items, timestamp for user-added
+        Item(String name, int price, String unit, String cat, String kw,
+             String photo, long id) {
             this.name = name;
             this.price = price;
             this.unit = unit;
             this.cat = cat;
+            this.photo = photo;
+            this.id = id;
             this.search = normalize(name + " " + kw + " " + cat);
         }
     }
@@ -71,12 +82,66 @@ public class MainActivity extends Activity
         status = findViewById(R.id.status_text);
         ListView list = findViewById(R.id.results_list);
         Button mic = findViewById(R.id.mic_button);
+        Button add = findViewById(R.id.add_button);
 
         adapter = new ResultAdapter(this);
         list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
+        list.setOnItemLongClickListener(this);
 
         searchBox.addTextChangedListener(this);
         mic.setOnClickListener(this);
+        add.setOnClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int pos, long rowId) {
+        Item it = shown.get(pos);
+        if (it.photo == null || it.photo.isEmpty()) return;
+        Intent intent = new Intent(this, PhotoViewActivity.class);
+        intent.putExtra(PhotoViewActivity.EXTRA_PHOTO, it.photo);
+        intent.putExtra(PhotoViewActivity.EXTRA_CAPTION, String.format(
+                Locale.ROOT, "%s — ₹%d %s", it.name, it.price, it.unit));
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+                                   long rowId) {
+        final Item it = shown.get(pos);
+        if (it.id == 0) return false;  // built-in items can't be deleted here
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_title)
+                .setMessage(getString(R.string.delete_msg, it.name))
+                .setPositiveButton(R.string.delete_yes,
+                        new DialogInterface.OnClickListener() {
+                            @Override public void onClick(DialogInterface d, int w) {
+                                deleteUserItem(it);
+                            }
+                        })
+                .setNegativeButton(R.string.delete_no, null)
+                .show();
+        return true;
+    }
+
+    private void deleteUserItem(Item it) {
+        try {
+            String photo = UserItems.removeById(this, it.id);
+            if (!photo.isEmpty()) {
+                Photos.dropThumb(photo);
+                Photos.userFile(this, photo).delete();
+            }
+            Toast.makeText(this, R.string.deleted, Toast.LENGTH_SHORT).show();
+            reload();
+        } catch (Exception e) {
+            Toast.makeText(this, "Delete failed: " + e, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void reload() {
+        items.clear();
+        loadItems();
+        runSearch(searchBox.getText().toString());
     }
 
     @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
@@ -89,7 +154,11 @@ public class MainActivity extends Activity
 
     @Override
     public void onClick(View v) {
-        startSpeech();
+        if (v.getId() == R.id.add_button) {
+            startAddItem();
+        } else {
+            startSpeech();
+        }
     }
 
     private void loadItems() {
@@ -105,12 +174,35 @@ public class MainActivity extends Activity
                 JSONObject o = arr.getJSONObject(i);
                 items.add(new Item(o.getString("name"), o.getInt("price"),
                         o.getString("unit"), o.getString("cat"),
-                        o.getString("kw")));
+                        o.getString("kw"), o.optString("photo", ""), 0));
             }
         } catch (Exception e) {
             Toast.makeText(this, "Failed to load price list: " + e,
                     Toast.LENGTH_LONG).show();
         }
+        // shopkeeper-added items
+        JSONArray user = UserItems.load(this);
+        for (int i = 0; i < user.length(); i++) {
+            JSONObject o = user.optJSONObject(i);
+            if (o == null) continue;
+            items.add(new Item(o.optString("name"), o.optInt("price"),
+                    o.optString("unit", "per piece"),
+                    o.optString("cat", getString(R.string.my_items_cat)),
+                    o.optString("kw", ""), o.optString("photo", ""),
+                    o.optLong("id")));
+        }
+    }
+
+    private void startAddItem() {
+        ArrayList<String> cats = new ArrayList<>();
+        for (Item it : items) {
+            if (it.id == 0 && !cats.contains(it.cat)) cats.add(it.cat);
+        }
+        cats.add(getString(R.string.my_items_cat));
+        Intent intent = new Intent(this, AddItemActivity.class);
+        intent.putExtra(AddItemActivity.EXTRA_CATS,
+                cats.toArray(new String[0]));
+        startActivityForResult(intent, REQ_ADD);
     }
 
     private void startSpeech() {
@@ -134,6 +226,10 @@ public class MainActivity extends Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_ADD) {
+            if (resultCode == RESULT_OK) reload();
+            return;
+        }
         if (requestCode != REQ_SPEECH) return;
         if (resultCode != RESULT_OK || data == null) {
             status.setText(R.string.status_idle);
@@ -269,6 +365,9 @@ public class MainActivity extends Activity
             ((TextView) v.findViewById(R.id.item_price)).setText(
                     String.format(Locale.ROOT, "₹ %d", it.price));
             ((TextView) v.findViewById(R.id.item_unit)).setText(it.unit);
+            ImageView photo = v.findViewById(R.id.item_photo);
+            Bitmap thumb = Photos.thumb(getContext(), it.photo);
+            photo.setImageBitmap(thumb);  // null clears recycled bitmaps
             return v;
         }
     }

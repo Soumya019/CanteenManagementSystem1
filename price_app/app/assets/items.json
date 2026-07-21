@@ -5,945 +5,1080 @@
    "price": 680,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "32A TPN Main Switch Metal-clad three-phase main switch 32A TPN switch main switch kitkat iron 32 amp ampere 32a"
+   "kw": "32A TPN Main Switch Metal-clad three-phase main switch 32A TPN switch main switch kitkat iron 32 amp ampere 32a",
+   "photo": "photos/main_switch_32a.jpg"
   },
   {
    "name": "16A SPN Main Switch",
    "price": 290,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "16A SPN Main Switch Single-phase neutral main switch 16A SPN switch main switch kitkat iron 16 amp ampere 16a"
+   "kw": "16A SPN Main Switch Single-phase neutral main switch 16A SPN switch main switch kitkat iron 16 amp ampere 16a",
+   "photo": "photos/main_switch_16a.jpg"
   },
   {
    "name": "LCD Digital Energy Meter",
    "price": 365,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "LCD Digital Energy Meter Single-phase digital kWh meter LCD meter energy meter bijli electric"
+   "kw": "LCD Digital Energy Meter Single-phase digital kWh meter LCD meter energy meter bijli electric",
+   "photo": "photos/energy_meter.jpg"
   },
   {
    "name": "Single Phase Meter Box",
    "price": 260,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "Single Phase Meter Box Enclosure for single-phase meter METER BOX meter"
+   "kw": "Single Phase Meter Box Enclosure for single-phase meter METER BOX meter",
+   "photo": "photos/meter_box.jpg"
   },
   {
    "name": "5-in-1 Multi-plug Adaptor",
    "price": 23,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "5-in-1 Multi-plug Adaptor Counter stock — multi-pin travel adaptor 5-IN-1 plug top adaptor adapter multiplug multi plug"
+   "kw": "5-in-1 Multi-plug Adaptor Counter stock — multi-pin travel adaptor 5-IN-1 plug top adaptor adapter multiplug multi plug",
+   "photo": "photos/multiplug_5in1.jpg"
   },
   {
    "name": "5 Pin Multi Socket (Standard)",
    "price": 13,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "5 Pin Multi Socket (Standard) Standard grade multi socket 5 PIN socket"
+   "kw": "5 Pin Multi Socket (Standard) Standard grade multi socket 5 PIN socket",
+   "photo": "photos/socket_5pin.jpg"
   },
   {
    "name": "5 Pin Multi Socket (Premium)",
    "price": 15,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "5 Pin Multi Socket (Premium) Premium grade — AASTHA red/white boxes 5 PIN socket"
+   "kw": "5 Pin Multi Socket (Premium) Premium grade — AASTHA red/white boxes 5 PIN socket",
+   "photo": "photos/socket_5pin_aastha.jpg"
   },
   {
    "name": "PVC Insulation Tape",
    "price": 13,
    "unit": "per roll",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "PVC Insulation Tape STRONX 7.5 m rolls — tape rack PVC TAPE tape insulation"
+   "kw": "PVC Insulation Tape STRONX 7.5 m rolls — tape rack PVC TAPE tape insulation",
+   "photo": "photos/tape_pvc.jpg"
   },
   {
    "name": "25MM Steel Screws",
    "price": 2,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "25MM Steel Screws Loose hardware — sold per piece 25 MM screw 25 mm"
+   "kw": "25MM Steel Screws Loose hardware — sold per piece 25 MM screw 25 mm",
+   "photo": "photos/screws_steel.jpg"
   },
   {
    "name": "35MM Steel Screws",
    "price": 2,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "35MM Steel Screws Loose hardware — sold per piece 35 MM screw 35 mm"
+   "kw": "35MM Steel Screws Loose hardware — sold per piece 35 MM screw 35 mm",
+   "photo": "photos/screws_steel.jpg"
   },
   {
    "name": "16MM Steel Screws",
    "price": 2,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "16MM Steel Screws Loose hardware — sold per piece 16 MM screw 16 mm"
+   "kw": "16MM Steel Screws Loose hardware — sold per piece 16 MM screw 16 mm",
+   "photo": "photos/screws_steel.jpg"
   },
   {
    "name": "1.5 Inch Brass Screws",
    "price": 6,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "1.5 Inch Brass Screws Brass — small packets on bulb shelf 1.5 IN screw"
+   "kw": "1.5 Inch Brass Screws Brass — small packets on bulb shelf 1.5 IN screw",
+   "photo": "photos/screws_brass.jpg"
   },
   {
    "name": "1 Inch Brass Screws",
    "price": 6,
    "unit": "per piece",
    "cat": "Main Switches, Meters & Steel Fittings",
-   "kw": "1 Inch Brass Screws Brass — small packets on bulb shelf 1 IN screw"
+   "kw": "1 Inch Brass Screws Brass — small packets on bulb shelf 1 IN screw",
+   "photo": "photos/screws_brass.jpg"
   },
   {
    "name": "Single Pole (SP) MCB — Silk Series",
    "price": 115,
    "unit": "per piece",
    "cat": "MCBs & Combined Units",
-   "kw": "Single Pole (SP) MCB — Silk Series VELOX red/white boxes — MCB shelf SP MCB mcb breaker"
+   "kw": "Single Pole (SP) MCB — Silk Series VELOX red/white boxes — MCB shelf SP MCB mcb breaker",
+   "photo": "photos/mcb_sp.jpg"
   },
   {
    "name": "Double Pole (DP) Combined Switch Box",
    "price": 65,
    "unit": "per piece",
    "cat": "MCBs & Combined Units",
-   "kw": "Double Pole (DP) Combined Switch Box Switch + socket combined unit DP switch"
+   "kw": "Double Pole (DP) Combined Switch Box Switch + socket combined unit DP switch",
+   "photo": "photos/combined_dp.jpg"
   },
   {
    "name": "5-in-1 Modular Combined Box",
    "price": 80,
    "unit": "per piece",
    "cat": "MCBs & Combined Units",
-   "kw": "5-in-1 Modular Combined Box Modular combined switch/socket box 5-IN-1 "
+   "kw": "5-in-1 Modular Combined Box Modular combined switch/socket box 5-IN-1 ",
+   "photo": "photos/combined_5in1.jpg"
   },
   {
    "name": "S.S. Combined Box / Switch Assembly",
    "price": 55,
    "unit": "per piece",
    "cat": "MCBs & Combined Units",
-   "kw": "S.S. Combined Box / Switch Assembly Stainless-finish combined assembly S.S. switch"
+   "kw": "S.S. Combined Box / Switch Assembly Stainless-finish combined assembly S.S. switch",
+   "photo": "photos/combined_ss.jpg"
   },
   {
    "name": "9W LED Bulb",
    "price": 35,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "9W LED Bulb MAGIK Grande — navy boxes, bulb shelves 9W bulb light led lamp 9 watt 9w"
+   "kw": "9W LED Bulb MAGIK Grande — navy boxes, bulb shelves 9W bulb light led lamp 9 watt 9w",
+   "photo": "photos/bulb_9w.jpg"
   },
   {
    "name": "12W LED Bulb",
    "price": 70,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "12W LED Bulb MAGIK Grande — navy boxes, bulb shelves 12W bulb light led lamp 12 watt 12w"
+   "kw": "12W LED Bulb MAGIK Grande — navy boxes, bulb shelves 12W bulb light led lamp 12 watt 12w",
+   "photo": "photos/bulb_12w.jpg"
   },
   {
    "name": "15W LED Bulb",
    "price": 105,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "15W LED Bulb MAGIK Grande — navy boxes, bulb shelves 15W bulb light led lamp 15 watt 15w"
+   "kw": "15W LED Bulb MAGIK Grande — navy boxes, bulb shelves 15W bulb light led lamp 15 watt 15w",
+   "photo": "photos/bulb_15w.jpg"
   },
   {
    "name": "17W LED Bulb",
    "price": 150,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "17W LED Bulb MAGIK Grande — navy boxes, bulb shelves 17W bulb light led lamp 17 watt 17w"
+   "kw": "17W LED Bulb MAGIK Grande — navy boxes, bulb shelves 17W bulb light led lamp 17 watt 17w",
+   "photo": "photos/bulb_17w.jpg"
   },
   {
    "name": "20W LED Bulb",
    "price": 200,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "20W LED Bulb MAGIK Grande — navy boxes, bulb shelves 20W bulb light led lamp 20 watt 20w"
+   "kw": "20W LED Bulb MAGIK Grande — navy boxes, bulb shelves 20W bulb light led lamp 20 watt 20w",
+   "photo": "photos/bulb_20w.jpg"
   },
   {
    "name": "23W LED Bulb",
    "price": 220,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "23W LED Bulb MAGIK Grande — navy boxes 23W bulb light led lamp 23 watt 23w"
+   "kw": "23W LED Bulb MAGIK Grande — navy boxes 23W bulb light led lamp 23 watt 23w",
+   "photo": "photos/bulb_23w.jpg"
   },
   {
    "name": "30W High-Wattage LED Bulb",
    "price": 300,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "30W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 30W bulb light led lamp 30 watt 30w"
+   "kw": "30W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 30W bulb light led lamp 30 watt 30w",
+   "photo": "photos/bulb_30w.jpg"
   },
   {
    "name": "40W High-Wattage LED Bulb",
    "price": 400,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "40W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 40W bulb light led lamp 40 watt 40w"
+   "kw": "40W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 40W bulb light led lamp 40 watt 40w",
+   "photo": "photos/bulb_40w.jpg"
   },
   {
    "name": "50W High-Wattage LED Bulb",
    "price": 500,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "50W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 50W bulb light led lamp 50 watt 50w"
+   "kw": "50W High-Wattage LED Bulb MAGIK Power Plus — navy boxes 50W bulb light led lamp 50 watt 50w",
+   "photo": "photos/bulb_50w.jpg"
   },
   {
    "name": "9W Slim LED Panel Light (AC)",
    "price": 245,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "9W Slim LED Panel Light (AC) Slim round/square ceiling panel 9W panel light ceiling 9 watt 9w"
+   "kw": "9W Slim LED Panel Light (AC) Slim round/square ceiling panel 9W panel light ceiling 9 watt 9w",
+   "photo": "photos/panel_9w.jpg"
   },
   {
    "name": "12W Slim LED Panel Light",
    "price": 285,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "12W Slim LED Panel Light Slim ceiling panel light 12W panel light ceiling 12 watt 12w"
+   "kw": "12W Slim LED Panel Light Slim ceiling panel light 12W panel light ceiling 12 watt 12w",
+   "photo": "photos/panel_12w.jpg"
   },
   {
    "name": "20W LED Tube Light / Batten",
    "price": 110,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "20W LED Tube Light / Batten MAGIK Ultima Square Sleek cartons — top shelf 20W tube batten tubelight light 20 watt 20w"
+   "kw": "20W LED Tube Light / Batten MAGIK Ultima Square Sleek cartons — top shelf 20W tube batten tubelight light 20 watt 20w",
+   "photo": "photos/batten_20w.jpg"
   },
   {
    "name": "24W LED Batten (Maximo Prime NEO)",
    "price": 165,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "24W LED Batten (Maximo Prime NEO) MAGIK Maximo Prime NEO — T5 batten, 2400 lm 24W tube batten tubelight light 24 watt 24w"
+   "kw": "24W LED Batten (Maximo Prime NEO) MAGIK Maximo Prime NEO — T5 batten, 2400 lm 24W tube batten tubelight light 24 watt 24w",
+   "photo": "photos/batten_24w.jpg"
   },
   {
    "name": "36W LED Batten (Maximo Prime NEO)",
    "price": 300,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "36W LED Batten (Maximo Prime NEO) MAGIK Maximo Prime NEO — T5 batten, 3300 lm 36W tube batten tubelight light 36 watt 36w"
+   "kw": "36W LED Batten (Maximo Prime NEO) MAGIK Maximo Prime NEO — T5 batten, 3300 lm 36W tube batten tubelight light 36 watt 36w",
+   "photo": "photos/batten_36w.jpg"
   },
   {
    "name": "40W LED Batten (Maximo Ultra Prime)",
    "price": 365,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "40W LED Batten (Maximo Ultra Prime) MAGIK Maximo Ultra Prime batten 40W tube batten tubelight light 40 watt 40w"
+   "kw": "40W LED Batten (Maximo Ultra Prime) MAGIK Maximo Ultra Prime batten 40W tube batten tubelight light 40 watt 40w",
+   "photo": "photos/batten_40w.jpg"
   },
   {
    "name": "24W LED Downlight (DO)",
    "price": 165,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "24W LED Downlight (DO) Recessed LED downlight 24W downlight down light 24 watt 24w"
+   "kw": "24W LED Downlight (DO) Recessed LED downlight 24W downlight down light 24 watt 24w",
+   "photo": "photos/downlight_24w.jpg"
   },
   {
    "name": "36W LED Downlight (DO)",
    "price": 300,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "36W LED Downlight (DO) Recessed LED downlight 36W downlight down light 36 watt 36w"
+   "kw": "36W LED Downlight (DO) Recessed LED downlight 36W downlight down light 36 watt 36w",
+   "photo": "photos/downlight_36w.jpg"
   },
   {
    "name": "40W LED Downlight (DO)",
    "price": 365,
    "unit": "per piece",
    "cat": "LED Bulbs, Panels & Tubes",
-   "kw": "40W LED Downlight (DO) Recessed LED downlight 40W downlight down light 40 watt 40w"
+   "kw": "40W LED Downlight (DO) Recessed LED downlight 40W downlight down light 40 watt 40w",
+   "photo": "photos/downlight_40w.jpg"
   },
   {
    "name": "Modular Switch (White)",
    "price": 30,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular Switch (White) PRITAM white series — red/white boxes 6A switch"
+   "kw": "Modular Switch (White) PRITAM white series — red/white boxes 6A switch",
+   "photo": "photos/mod_switch.jpg"
   },
   {
    "name": "Modular Socket (White)",
    "price": 30,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular Socket (White) PRITAM white series — red/white boxes 6A socket"
+   "kw": "Modular Socket (White) PRITAM white series — red/white boxes 6A socket",
+   "photo": "photos/mod_socket.jpg"
   },
   {
    "name": "2-in-1 Modular Socket (White)",
    "price": 165,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "2-in-1 Modular Socket (White) PRITAM white series 2-IN-1 socket"
+   "kw": "2-in-1 Modular Socket (White) PRITAM white series 2-IN-1 socket",
+   "photo": "photos/mod_socket_2in1.jpg"
   },
   {
    "name": "Modular Indicator Unit (White)",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular Indicator Unit (White) PRITAM white series NEON indicator neon lamp"
+   "kw": "Modular Indicator Unit (White) PRITAM white series NEON indicator neon lamp",
+   "photo": "photos/mod_indicator.jpg"
   },
   {
    "name": "2-Way Modular Switch (White)",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "2-Way Modular Switch (White) PRITAM white series 2 WAY switch"
+   "kw": "2-Way Modular Switch (White) PRITAM white series 2 WAY switch",
+   "photo": "photos/mod_2way.jpg"
   },
   {
    "name": "Modular Bell Push Switch (White)",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular Bell Push Switch (White) PRITAM white series BELL switch bell push doorbell calling"
+   "kw": "Modular Bell Push Switch (White) PRITAM white series BELL switch bell push doorbell calling",
+   "photo": "photos/mod_bell.jpg"
   },
   {
    "name": "16A Heavy-Duty Modular Socket",
    "price": 160,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "16A Heavy-Duty Modular Socket PRITAM heavy-duty modular 16A socket 16 amp ampere 16a"
+   "kw": "16A Heavy-Duty Modular Socket PRITAM heavy-duty modular 16A socket 16 amp ampere 16a",
+   "photo": "photos/mod_socket_16a.jpg"
   },
   {
    "name": "16A Heavy-Duty Modular Switch",
    "price": 105,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "16A Heavy-Duty Modular Switch PRITAM heavy-duty modular 16A switch 16 amp ampere 16a"
+   "kw": "16A Heavy-Duty Modular Switch PRITAM heavy-duty modular 16A switch 16 amp ampere 16a",
+   "photo": "photos/mod_switch_16a.jpg"
   },
   {
    "name": "Modular Fan Regulator (White)",
    "price": 225,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular Fan Regulator (White) PRITAM stepped modular regulator FAN REG regulator fan speed"
+   "kw": "Modular Fan Regulator (White) PRITAM stepped modular regulator FAN REG regulator fan speed",
+   "photo": "photos/mod_regulator.jpg"
   },
   {
    "name": "Modular A/C Starter Switch",
    "price": 705,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Modular A/C Starter Switch PRITAM A/C starter — 5 pcs per box 20A A/C switch"
+   "kw": "Modular A/C Starter Switch PRITAM A/C starter — 5 pcs per box 20A A/C switch",
+   "photo": "photos/mod_ac_switch.jpg"
   },
   {
    "name": "Piano Switch (Silver Line Series)",
    "price": 36,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Piano Switch (Silver Line Series) PRITAM Silver Line — silver boxes 6A switch"
+   "kw": "Piano Switch (Silver Line Series) PRITAM Silver Line — silver boxes 6A switch",
+   "photo": "photos/piano_switch.jpg"
   },
   {
    "name": "Standard Piano Socket",
    "price": 36,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Standard Piano Socket Piano type — silver boxes 6A socket"
+   "kw": "Standard Piano Socket Piano type — silver boxes 6A socket",
+   "photo": "photos/piano_socket.jpg"
   },
   {
    "name": "2-in-1 Piano Socket",
    "price": 190,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "2-in-1 Piano Socket Piano type 2-IN-1 socket"
+   "kw": "2-in-1 Piano Socket Piano type 2-IN-1 socket",
+   "photo": "photos/piano_socket_2in1.jpg"
   },
   {
    "name": "Piano Indicator Unit",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Piano Indicator Unit Piano type NEON indicator neon lamp"
+   "kw": "Piano Indicator Unit Piano type NEON indicator neon lamp",
+   "photo": "photos/alfa_indicator.jpg"
   },
   {
    "name": "2-Way Piano Switch",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "2-Way Piano Switch Piano type 2 WAY switch"
+   "kw": "2-Way Piano Switch Piano type 2 WAY switch",
+   "photo": "photos/piano_2way.jpg"
   },
   {
    "name": "Piano Bell Push Switch",
    "price": 85,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Piano Bell Push Switch Piano type BELL switch bell push doorbell calling"
+   "kw": "Piano Bell Push Switch Piano type BELL switch bell push doorbell calling",
+   "photo": "photos/piano_bell.jpg"
   },
   {
    "name": "16A Heavy-Duty Piano Socket",
    "price": 170,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "16A Heavy-Duty Piano Socket Piano type, heavy duty 16A socket 16 amp ampere 16a"
+   "kw": "16A Heavy-Duty Piano Socket Piano type, heavy duty 16A socket 16 amp ampere 16a",
+   "photo": "photos/piano_socket_16a.jpg"
   },
   {
    "name": "16A Heavy-Duty Piano Switch",
    "price": 120,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "16A Heavy-Duty Piano Switch Piano type, heavy duty 16A switch 16 amp ampere 16a"
+   "kw": "16A Heavy-Duty Piano Switch Piano type, heavy duty 16A switch 16 amp ampere 16a",
+   "photo": "photos/piano_switch_16a.jpg"
   },
   {
    "name": "Fan Regulator (Piano Style)",
    "price": 365,
    "unit": "per piece",
    "cat": "Premium Modular & Piano Switches",
-   "kw": "Fan Regulator (Piano Style) Piano style stepped regulator FAN REG regulator fan speed"
+   "kw": "Fan Regulator (Piano Style) Piano style stepped regulator FAN REG regulator fan speed",
+   "photo": "photos/piano_regulator.jpg"
   },
   {
    "name": "2-Module Modular Box",
    "price": 35,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "2-Module Modular Box Premium modular surface box 2 MOD box module surface"
+   "kw": "2-Module Modular Box Premium modular surface box 2 MOD box module surface",
+   "photo": "photos/modbox_2.jpg"
   },
   {
    "name": "3-Module Modular Box",
    "price": 38,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "3-Module Modular Box Premium modular surface box 3 MOD box module surface"
+   "kw": "3-Module Modular Box Premium modular surface box 3 MOD box module surface",
+   "photo": "photos/modbox_3.jpg"
   },
   {
    "name": "4-Module Modular Box",
    "price": 47,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "4-Module Modular Box Premium modular surface box 4 MOD box module surface"
+   "kw": "4-Module Modular Box Premium modular surface box 4 MOD box module surface",
+   "photo": "photos/modbox_4.jpg"
   },
   {
    "name": "6-Module Modular Box",
    "price": 130,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "6-Module Modular Box Premium modular surface box 6 MOD box module surface"
+   "kw": "6-Module Modular Box Premium modular surface box 6 MOD box module surface",
+   "photo": "photos/modbox_6.jpg"
   },
   {
    "name": "8-Module Modular Box",
    "price": 175,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "8-Module Modular Box Premium modular surface box 8 MOD box module surface"
+   "kw": "8-Module Modular Box Premium modular surface box 8 MOD box module surface",
+   "photo": "photos/modbox_8.jpg"
   },
   {
    "name": "12-Module Modular Box",
    "price": 395,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "12-Module Modular Box Premium modular surface box 12 MOD box module surface"
+   "kw": "12-Module Modular Box Premium modular surface box 12 MOD box module surface",
+   "photo": "photos/modbox_12.jpg"
   },
   {
    "name": "2-Module Cover Plate",
    "price": 38,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "2-Module Cover Plate VITA white cover plate 2 MOD plate cover front"
+   "kw": "2-Module Cover Plate VITA white cover plate 2 MOD plate cover front",
+   "photo": "photos/plate_2.jpg"
   },
   {
    "name": "3-Module Cover Plate",
    "price": 44,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "3-Module Cover Plate VITA white cover plate 3 MOD plate cover front"
+   "kw": "3-Module Cover Plate VITA white cover plate 3 MOD plate cover front",
+   "photo": "photos/plate_3.jpg"
   },
   {
    "name": "4-Module Cover Plate",
    "price": 50,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "4-Module Cover Plate VITA white cover plate 4 MOD plate cover front"
+   "kw": "4-Module Cover Plate VITA white cover plate 4 MOD plate cover front",
+   "photo": "photos/plate_4.jpg"
   },
   {
    "name": "6-Module Cover Plate",
    "price": 125,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "6-Module Cover Plate VITA white cover plate 6 MOD plate cover front"
+   "kw": "6-Module Cover Plate VITA white cover plate 6 MOD plate cover front",
+   "photo": "photos/plate_6.jpg"
   },
   {
    "name": "8-Module Cover Plate",
    "price": 145,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "8-Module Cover Plate VITA white cover plate 8 MOD plate cover front"
+   "kw": "8-Module Cover Plate VITA white cover plate 8 MOD plate cover front",
+   "photo": "photos/plate_8.jpg"
   },
   {
    "name": "12-Module Cover Plate",
    "price": 220,
    "unit": "per piece",
    "cat": "PRITAM Modular Boxes & Cover Plates",
-   "kw": "12-Module Cover Plate VITA white cover plate 12 MOD plate cover front"
+   "kw": "12-Module Cover Plate VITA white cover plate 12 MOD plate cover front",
+   "photo": "photos/plate_12.jpg"
   },
   {
    "name": "16A Piano Switch (Ritam)",
    "price": 46,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "16A Piano Switch (Ritam) PRITAM Alfa — yellow boxes 16A switch 16 amp ampere 16a"
+   "kw": "16A Piano Switch (Ritam) PRITAM Alfa — yellow boxes 16A switch 16 amp ampere 16a",
+   "photo": "photos/alfa_switch_16a.jpg"
   },
   {
    "name": "16A Piano Socket (Ritam)",
    "price": 46,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "16A Piano Socket (Ritam) PRITAM Alfa — yellow boxes 16A socket 16 amp ampere 16a"
+   "kw": "16A Piano Socket (Ritam) PRITAM Alfa — yellow boxes 16A socket 16 amp ampere 16a",
+   "photo": "photos/alfa_socket_16a.jpg"
   },
   {
    "name": "6A 3-in-1 Combined Socket",
    "price": 70,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "6A 3-in-1 Combined Socket PRITAM Alfa — yellow boxes 3-IN-1 socket 6 amp ampere 6a"
+   "kw": "6A 3-in-1 Combined Socket PRITAM Alfa — yellow boxes 3-IN-1 socket 6 amp ampere 6a",
+   "photo": "photos/alfa_3in1.jpg"
   },
   {
    "name": "10A Modular Kit-Kat Fuse Unit",
    "price": 100,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "10A Modular Kit-Kat Fuse Unit Kit-kat fuse — PRITAM Alfa / KAMLA green boxes 10A fuse kitkat kit kat 10 amp ampere 10a"
+   "kw": "10A Modular Kit-Kat Fuse Unit Kit-kat fuse — PRITAM Alfa / KAMLA green boxes 10A fuse kitkat kit kat 10 amp ampere 10a",
+   "photo": "photos/alfa_fuse.jpg"
   },
   {
    "name": "16A 3-Pin Top Plug",
    "price": 60,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "16A 3-Pin Top Plug PRITAM Alfa — yellow boxes 16A plug top 16 amp ampere 16a"
+   "kw": "16A 3-Pin Top Plug PRITAM Alfa — yellow boxes 16A plug top 16 amp ampere 16a",
+   "photo": "photos/alfa_plug_16a.jpg"
   },
   {
    "name": "6A 3-Pin Top Plug",
    "price": 44,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "6A 3-Pin Top Plug PRITAM Alfa — yellow boxes 6A plug top 6 amp ampere 6a"
+   "kw": "6A 3-Pin Top Plug PRITAM Alfa — yellow boxes 6A plug top 6 amp ampere 6a",
+   "photo": "photos/alfa_plug_6a.jpg"
   },
   {
    "name": "Standard Neon Indicator",
    "price": 34,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "Standard Neon Indicator PRITAM Alfa — yellow boxes NEON indicator neon lamp"
+   "kw": "Standard Neon Indicator PRITAM Alfa — yellow boxes NEON indicator neon lamp",
+   "photo": "photos/alfa_indicator.jpg"
   },
   {
    "name": "Standard Bell Push Switch",
    "price": 34,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "Standard Bell Push Switch PRITAM Alfa — yellow boxes BELL switch bell push doorbell calling"
+   "kw": "Standard Bell Push Switch PRITAM Alfa — yellow boxes BELL switch bell push doorbell calling",
+   "photo": "photos/alfa_bell.jpg"
   },
   {
    "name": "2-in-1 Flush Socket Unit",
    "price": 70,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "2-in-1 Flush Socket Unit PRITAM Alfa — yellow boxes 2-IN-1 socket"
+   "kw": "2-in-1 Flush Socket Unit PRITAM Alfa — yellow boxes 2-IN-1 socket",
+   "photo": "photos/alfa_flush_2in1.jpg"
   },
   {
    "name": "2-Way Light Switch (6A)",
    "price": 34,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "2-Way Light Switch (6A) PRITAM Alfa — yellow boxes 2 WAY switch 6 amp ampere 6a"
+   "kw": "2-Way Light Switch (6A) PRITAM Alfa — yellow boxes 2 WAY switch 6 amp ampere 6a",
+   "photo": "photos/alfa_2way.jpg"
   },
   {
    "name": "1-Way Light Switch (6A)",
    "price": 17,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "1-Way Light Switch (6A) PRITAM Alfa — yellow boxes 1 WAY switch 6 amp ampere 6a"
+   "kw": "1-Way Light Switch (6A) PRITAM Alfa — yellow boxes 1 WAY switch 6 amp ampere 6a",
+   "photo": "photos/alfa_1way.jpg"
   },
   {
    "name": "6-16A Multi-plug Heavy Adaptor",
    "price": 65,
    "unit": "per piece",
    "cat": "PRITAM Normal Series (Alfa) Accessories",
-   "kw": "6-16A Multi-plug Heavy Adaptor PRITAM Alfa — yellow boxes 6-16A plug top adaptor adapter multiplug multi plug 16 amp ampere 16a"
+   "kw": "6-16A Multi-plug Heavy Adaptor PRITAM Alfa — yellow boxes 6-16A plug top adaptor adapter multiplug multi plug 16 amp ampere 16a",
+   "photo": "photos/alfa_multiplug.jpg"
   },
   {
    "name": "1.5 SQMM Copper FR Wire (Z.G.)",
    "price": 1125,
    "unit": "per coil",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "1.5 SQMM Copper FR Wire (Z.G.) Z4 KABEL yellow boxes — wire shelf, top 1.5 SQMM wire cable tar taar 1.5 mm 1.5 sqmm square mm"
+   "kw": "1.5 SQMM Copper FR Wire (Z.G.) Z4 KABEL yellow boxes — wire shelf, top 1.5 SQMM wire cable tar taar 1.5 mm 1.5 sqmm square mm",
+   "photo": "photos/wire_zg.jpg"
   },
   {
    "name": "1.5 SQMM Copper FR Wire (RK Gold)",
    "price": 770,
    "unit": "per coil",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "1.5 SQMM Copper FR Wire (RK Gold) RK GOLD black & gold boxes — top shelf 1.5 SQMM wire cable tar taar 1.5 mm 1.5 sqmm square mm"
+   "kw": "1.5 SQMM Copper FR Wire (RK Gold) RK GOLD black & gold boxes — top shelf 1.5 SQMM wire cable tar taar 1.5 mm 1.5 sqmm square mm",
+   "photo": "photos/wire_rkgold_15.jpg"
   },
   {
    "name": "1.0 SQMM Copper FR Wire (RK Gold)",
    "price": 535,
    "unit": "per coil",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "1.0 SQMM Copper FR Wire (RK Gold) RK GOLD black & gold boxes — top shelf 1.0 SQMM wire cable tar taar 1.0 mm 1.0 sqmm square mm"
+   "kw": "1.0 SQMM Copper FR Wire (RK Gold) RK GOLD black & gold boxes — top shelf 1.0 SQMM wire cable tar taar 1.0 mm 1.0 sqmm square mm",
+   "photo": "photos/wire_rkgold_10.jpg"
   },
   {
    "name": "25MM Heavy Conduit Clips",
    "price": 9,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "25MM Heavy Conduit Clips Heavy conduit clip with nail 25 MM clip 25 mm"
+   "kw": "25MM Heavy Conduit Clips Heavy conduit clip with nail 25 MM clip 25 mm",
+   "photo": "photos/clip_conduit.jpg"
   },
   {
    "name": "20MM Heavy Conduit Clips",
    "price": 8,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "20MM Heavy Conduit Clips Heavy conduit clip with nail 20 MM clip 20 mm"
+   "kw": "20MM Heavy Conduit Clips Heavy conduit clip with nail 20 MM clip 20 mm",
+   "photo": "photos/clip_conduit.jpg"
   },
   {
    "name": "16MM Heavy Conduit Clips",
    "price": 12,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "16MM Heavy Conduit Clips Heavy conduit clip with nail 16 MM clip 16 mm"
+   "kw": "16MM Heavy Conduit Clips Heavy conduit clip with nail 16 MM clip 16 mm",
+   "photo": "photos/clip_conduit.jpg"
   },
   {
    "name": "14MM Wire Clips",
    "price": 8,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "14MM Wire Clips Cable clip — grey packs, corner shelf 14 MM wire cable tar taar clip 14 mm"
+   "kw": "14MM Wire Clips Cable clip — grey packs, corner shelf 14 MM wire cable tar taar clip 14 mm",
+   "photo": "photos/clip_wire.jpg"
   },
   {
    "name": "12MM Wire Clips",
    "price": 7,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "12MM Wire Clips Cable clip — grey packs, corner shelf 12 MM wire cable tar taar clip 12 mm"
+   "kw": "12MM Wire Clips Cable clip — grey packs, corner shelf 12 MM wire cable tar taar clip 12 mm",
+   "photo": "photos/clip_wire.jpg"
   },
   {
    "name": "10MM Wire Clips",
    "price": 5,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "10MM Wire Clips Cable clip — grey packs, corner shelf 10 MM wire cable tar taar clip 10 mm"
+   "kw": "10MM Wire Clips Cable clip — grey packs, corner shelf 10 MM wire cable tar taar clip 10 mm",
+   "photo": "photos/clip_wire.jpg"
   },
   {
    "name": "8MM Concrete Wire Clips",
    "price": 4,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "8MM Concrete Wire Clips Concrete-nail cable clip 8 MM wire cable tar taar clip 8 mm"
+   "kw": "8MM Concrete Wire Clips Concrete-nail cable clip 8 MM wire cable tar taar clip 8 mm",
+   "photo": "photos/clip_concrete.jpg"
   },
   {
    "name": "7MM Concrete Wire Clips",
    "price": 3,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "7MM Concrete Wire Clips Concrete-nail cable clip 7 MM wire cable tar taar clip 7 mm"
+   "kw": "7MM Concrete Wire Clips Concrete-nail cable clip 7 MM wire cable tar taar clip 7 mm",
+   "photo": "photos/clip_concrete.jpg"
   },
   {
    "name": "6MM Concrete Wire Clips",
    "price": 3,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "6MM Concrete Wire Clips Concrete-nail cable clip 6 MM wire cable tar taar clip 6 mm"
+   "kw": "6MM Concrete Wire Clips Concrete-nail cable clip 6 MM wire cable tar taar clip 6 mm",
+   "photo": "photos/clip_concrete.jpg"
   },
   {
    "name": "Steel Casing Pins / Nails",
    "price": 145,
    "unit": "per packet",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "Steel Casing Pins / Nails Casing-capping pins — packet PINS pin nail pins nails"
+   "kw": "Steel Casing Pins / Nails Casing-capping pins — packet PINS pin nail pins nails",
+   "photo": "photos/casing_pins.jpg"
   },
   {
    "name": "5MM Link Clips",
    "price": 2,
    "unit": "per piece",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "5MM Link Clips Small link clip 5 MM clip 5 mm"
+   "kw": "5MM Link Clips Small link clip 5 MM clip 5 mm",
+   "photo": "photos/clip_link.jpg"
   },
   {
    "name": "Plastic Wall Plugs / Gillis",
    "price": 80,
    "unit": "per packet",
    "cat": "Clips, Hardware & House Wires",
-   "kw": "Plastic Wall Plugs / Gillis Green packets — wall plug/gitti GITTI plug top gitti gilli wall plug rawl"
+   "kw": "Plastic Wall Plugs / Gillis Green packets — wall plug/gitti GITTI plug top gitti gilli wall plug rawl",
+   "photo": "photos/wall_plugs.jpg"
   },
   {
    "name": "23/76 Twin Flat Flexible Wire",
    "price": 830,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "23/76 Twin Flat Flexible Wire Twin flat flex — coil 23/76 wire cable tar taar 23 by 76 2376"
+   "kw": "23/76 Twin Flat Flexible Wire Twin flat flex — coil 23/76 wire cable tar taar 23 by 76 2376",
+   "photo": "photos/coil_2376.jpg"
   },
   {
    "name": "23/36 Multi-strand Flex Cord",
    "price": 810,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "23/36 Multi-strand Flex Cord STAR-FLEX green label coils — top shelf 23/36 wire cable tar taar 23 by 36 2336"
+   "kw": "23/36 Multi-strand Flex Cord STAR-FLEX green label coils — top shelf 23/36 wire cable tar taar 23 by 36 2336",
+   "photo": "photos/coil_2336.jpg"
   },
   {
    "name": "14/36 Standard Flexible Wire",
    "price": 535,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "14/36 Standard Flexible Wire STAR-FLEX coils — red/yellow, top shelf 14/36 wire cable tar taar 14 by 36 1436"
+   "kw": "14/36 Standard Flexible Wire STAR-FLEX coils — red/yellow, top shelf 14/36 wire cable tar taar 14 by 36 1436",
+   "photo": "photos/coil_1436.jpg"
   },
   {
    "name": "40/76 Heavy Duty Submersible Cord",
    "price": 495,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "40/76 Heavy Duty Submersible Cord H.R. CAB coil — blue/red, wire shelf 40/76 wire cable tar taar 40 by 76 4076"
+   "kw": "40/76 Heavy Duty Submersible Cord H.R. CAB coil — blue/red, wire shelf 40/76 wire cable tar taar 40 by 76 4076",
+   "photo": "photos/coil_4076.jpg"
   },
   {
    "name": "14/40 Super-fine Binding/Flex Wire",
    "price": 215,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "14/40 Super-fine Binding/Flex Wire Fine binding flex — coil 14/40 wire cable tar taar 14 by 40 1440"
+   "kw": "14/40 Super-fine Binding/Flex Wire Fine binding flex — coil 14/40 wire cable tar taar 14 by 40 1440",
+   "photo": "photos/coil_1440.jpg"
   },
   {
    "name": "23/40 Mid-gauge Industrial Flex",
    "price": 295,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "23/40 Mid-gauge Industrial Flex White & striped coils — top shelf, PRITAM rack 23/40 wire cable tar taar 23 by 40 2340"
+   "kw": "23/40 Mid-gauge Industrial Flex White & striped coils — top shelf, PRITAM rack 23/40 wire cable tar taar 23 by 40 2340",
+   "photo": "photos/coil_2340.jpg"
   },
   {
    "name": "0.75 SQMM Single Core Flex Cable",
    "price": 665,
    "unit": "per coil",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "0.75 SQMM Single Core Flex Cable Single core flex — coil 0.75 SQMM wire cable tar taar 0.75 mm 0.75 sqmm square mm"
+   "kw": "0.75 SQMM Single Core Flex Cable Single core flex — coil 0.75 SQMM wire cable tar taar 0.75 mm 0.75 sqmm square mm",
+   "photo": "photos/coil_075.jpg"
   },
   {
    "name": "Industrial Polythene Roll",
    "price": 650,
    "unit": "per packet",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "Industrial Polythene Roll Packing polythene — per packet/roll POLY polythene poly packet plastic"
+   "kw": "Industrial Polythene Roll Packing polythene — per packet/roll POLY polythene poly packet plastic",
+   "photo": "photos/poly_roll.jpg"
   },
   {
    "name": "2-in-1 Top Insulation Cap",
    "price": 2,
    "unit": "per piece",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "2-in-1 Top Insulation Cap Insulation end caps CAP cap"
+   "kw": "2-in-1 Top Insulation Cap Insulation end caps CAP cap",
+   "photo": "photos/insul_caps.jpg"
   },
   {
    "name": "Pendant Lamp Holder (Bakelite Black)",
    "price": 12,
    "unit": "per piece",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "Pendant Lamp Holder (Bakelite Black) Bakelite pendant holder BLACK holder"
+   "kw": "Pendant Lamp Holder (Bakelite Black) Bakelite pendant holder BLACK holder",
+   "photo": "photos/holder_black.jpg"
   },
   {
    "name": "Pendant Lamp Holder (Standard White)",
    "price": 9,
    "unit": "per piece",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "Pendant Lamp Holder (Standard White) Standard pendant holder WHITE holder"
+   "kw": "Pendant Lamp Holder (Standard White) Standard pendant holder WHITE holder",
+   "photo": "photos/holder_white.jpg"
   },
   {
    "name": "Angle / Batten Holder Base",
    "price": 10,
    "unit": "per piece",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "Angle / Batten Holder Base Angle batten holder — holder shelf ANGLE tube batten tubelight light holder"
+   "kw": "Angle / Batten Holder Base Angle batten holder — holder shelf ANGLE tube batten tubelight light holder",
+   "photo": "photos/holder_angle.jpg"
   },
   {
    "name": "100mm Nylon Cable Ties",
    "price": 33,
    "unit": "per packet",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "100mm Nylon Cable Ties Nylon zip ties — per packet 100 MM wire cable tar taar cable tie zip tie ties 100 mm"
+   "kw": "100mm Nylon Cable Ties Nylon zip ties — per packet 100 MM wire cable tar taar cable tie zip tie ties 100 mm",
+   "photo": "photos/ties_100.jpg"
   },
   {
    "name": "150mm Nylon Cable Ties",
    "price": 43,
    "unit": "per packet",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "150mm Nylon Cable Ties Nylon zip ties — per packet 150 MM wire cable tar taar cable tie zip tie ties 150 mm"
+   "kw": "150mm Nylon Cable Ties Nylon zip ties — per packet 150 MM wire cable tar taar cable tie zip tie ties 150 mm",
+   "photo": "photos/ties_150.jpg"
   },
   {
    "name": "200mm Nylon Cable Ties",
    "price": 65,
    "unit": "per packet",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "200mm Nylon Cable Ties Nylon zip ties — per packet 200 MM wire cable tar taar cable tie zip tie ties 200 mm"
+   "kw": "200mm Nylon Cable Ties Nylon zip ties — per packet 200 MM wire cable tar taar cable tie zip tie ties 200 mm",
+   "photo": "photos/ties_200.jpg"
   },
   {
    "name": "250mm Nylon Cable Ties",
    "price": 80,
    "unit": "per packet",
    "cat": "Cable Ties, Holders & Flexible Cords",
-   "kw": "250mm Nylon Cable Ties Nylon zip ties — per packet 250 MM wire cable tar taar cable tie zip tie ties 250 mm"
+   "kw": "250mm Nylon Cable Ties Nylon zip ties — per packet 250 MM wire cable tar taar cable tie zip tie ties 250 mm",
+   "photo": "photos/ties_250.jpg"
   },
   {
    "name": "Male-Female Joy Light Connectors",
    "price": 4,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Male-Female Joy Light Connectors Series light connectors — counter drawer M-F connector joint block"
+   "kw": "Male-Female Joy Light Connectors Series light connectors — counter drawer M-F connector joint block",
+   "photo": "photos/joy_conn.jpg"
   },
   {
    "name": "2-in-1 Asta Plugs / Male Pins",
    "price": 12,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "2-in-1 Asta Plugs / Male Pins AASTHA red/white boxes 2 PIN plug top pin nail pins nails"
+   "kw": "2-in-1 Asta Plugs / Male Pins AASTHA red/white boxes 2 PIN plug top pin nail pins nails",
+   "photo": "photos/asta_2pin.jpg"
   },
   {
    "name": "Male-Female Assa Industrial Sockets",
    "price": 23,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Male-Female Assa Industrial Sockets AASTHA 'Male-Female' boxes — counter shelf M-F socket"
+   "kw": "Male-Female Assa Industrial Sockets AASTHA 'Male-Female' boxes — counter shelf M-F socket",
+   "photo": "photos/asta_mf_socket.jpg"
   },
   {
    "name": "Bed Hanging Switches (Assa)",
    "price": 12,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Bed Hanging Switches (Assa) Hanging pendant switch BED switch bed switch hanging"
+   "kw": "Bed Hanging Switches (Assa) Hanging pendant switch BED switch bed switch hanging",
+   "photo": "photos/bed_switch_aastha.jpg"
   },
   {
    "name": "Single Line (S/L) Top Plug 6A",
    "price": 17,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Single Line (S/L) Top Plug 6A Single-line top plug 6A S/L plug top 6 amp ampere 6a"
+   "kw": "Single Line (S/L) Top Plug 6A Single-line top plug 6A S/L plug top 6 amp ampere 6a",
+   "photo": "photos/plug_sl.jpg"
   },
   {
    "name": "Stepped Fan Regulator (Assa)",
    "price": 47,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Stepped Fan Regulator (Assa) Surface stepped regulator FAN REG regulator fan speed"
+   "kw": "Stepped Fan Regulator (Assa) Surface stepped regulator FAN REG regulator fan speed",
+   "photo": "photos/fan_reg_aastha.jpg"
   },
   {
    "name": "5-15A Multi-plug Universal Adaptor",
    "price": 60,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "5-15A Multi-plug Universal Adaptor FLOREX yellow-green boxes — multi-plug shelf 5-15A plug top adaptor adapter multiplug multi plug 15 amp ampere 15a"
+   "kw": "5-15A Multi-plug Universal Adaptor FLOREX yellow-green boxes — multi-plug shelf 5-15A plug top adaptor adapter multiplug multi plug 15 amp ampere 15a",
+   "photo": "photos/florex_multiplug.jpg"
   },
   {
    "name": "Royal Hanging Bed Switches",
    "price": 13,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "Royal Hanging Bed Switches Royal hanging switch BED switch bed switch hanging"
+   "kw": "Royal Hanging Bed Switches Royal hanging switch BED switch bed switch hanging",
+   "photo": "photos/bed_switch_royal.jpg"
   },
   {
    "name": "16A 3-Pin Power Top Plug",
    "price": 29,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "16A 3-Pin Power Top Plug Power top plug 16A plug top 16 amp ampere 16a"
+   "kw": "16A 3-Pin Power Top Plug Power top plug 16A plug top 16 amp ampere 16a",
+   "photo": "photos/plug_16a_power.jpg"
   },
   {
    "name": "6A 3-Pin Standard Top Plug",
    "price": 29,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "6A 3-Pin Standard Top Plug AASTHA '2 Pin Top' style boxes — counter shelf 6A plug top 6 amp ampere 6a"
+   "kw": "6A 3-Pin Standard Top Plug AASTHA '2 Pin Top' style boxes — counter shelf 6A plug top 6 amp ampere 6a",
+   "photo": "photos/alfa_plug_6a.jpg"
   },
   {
    "name": "6-16A Combined Multi-plug Adaptor",
    "price": 70,
    "unit": "per piece",
    "cat": "Joy Lights & Decorative Fittings",
-   "kw": "6-16A Combined Multi-plug Adaptor Combined universal adaptor 6-16A plug top adaptor adapter multiplug multi plug 16 amp ampere 16a"
+   "kw": "6-16A Combined Multi-plug Adaptor Combined universal adaptor 6-16A plug top adaptor adapter multiplug multi plug 16 amp ampere 16a",
+   "photo": "photos/multiplug_616.jpg"
   },
   {
    "name": "8-Meter Extension Flex Box (White)",
    "price": 145,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "8-Meter Extension Flex Box (White) HEERA teal boxes — extension shelf, top right 8 MTR wire cable tar taar extension board flex box cord meter"
+   "kw": "8-Meter Extension Flex Box (White) HEERA teal boxes — extension shelf, top right 8 MTR wire cable tar taar extension board flex box cord meter",
+   "photo": "photos/heera_ext_8.jpg"
   },
   {
    "name": "4-Meter Extension Flex Box (White)",
    "price": 115,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "4-Meter Extension Flex Box (White) HEERA teal boxes — extension shelf, top right 4 MTR wire cable tar taar extension board flex box cord meter"
+   "kw": "4-Meter Extension Flex Box (White) HEERA teal boxes — extension shelf, top right 4 MTR wire cable tar taar extension board flex box cord meter",
+   "photo": "photos/heera_ext_8.jpg"
   },
   {
    "name": "3-in-1 Combined Extension Cord",
    "price": 160,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "3-in-1 Combined Extension Cord HEERA teal boxes / KAMLA green boxes 3-IN-1 wire cable tar taar extension board flex box cord"
+   "kw": "3-in-1 Combined Extension Cord HEERA teal boxes / KAMLA green boxes 3-IN-1 wire cable tar taar extension board flex box cord",
+   "photo": "photos/heera_ext_8.jpg"
   },
   {
    "name": "Polonix Bed Switches (Heavy Duty)",
    "price": 9,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Polonix Bed Switches (Heavy Duty) POLONIX red boxes — counter shelf BED switch bed switch hanging"
+   "kw": "Polonix Bed Switches (Heavy Duty) POLONIX red boxes — counter shelf BED switch bed switch hanging",
+   "photo": "photos/polonix_bed.jpg"
   },
   {
    "name": "Asta Premium Pendant Holders",
    "price": 20,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Asta Premium Pendant Holders AASTHA holder boxes — holder shelf HOLDER holder"
+   "kw": "Asta Premium Pendant Holders AASTHA holder boxes — holder shelf HOLDER holder",
+   "photo": "photos/aastha_holder.jpg"
   },
   {
    "name": "Molded Ceiling Roses (White)",
    "price": 13,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Molded Ceiling Roses (White) White 'Ceiling Rose' boxes — counter shelf 2-PLATE ceiling rose"
+   "kw": "Molded Ceiling Roses (White) White 'Ceiling Rose' boxes — counter shelf 2-PLATE ceiling rose",
+   "photo": "photos/ceiling_rose.jpg"
   },
   {
    "name": "32A Dual-Source Changeover Switch",
    "price": 160,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "32A Dual-Source Changeover Switch Inverter/main changeover 32A switch changeover change over 32 amp ampere 32a"
+   "kw": "32A Dual-Source Changeover Switch Inverter/main changeover 32A switch changeover change over 32 amp ampere 32a",
+   "photo": "photos/changeover.jpg"
   },
   {
    "name": "Digital Line Neon Testers",
    "price": 25,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Digital Line Neon Testers Line tester — counter jar DIGITAL tester line tester"
+   "kw": "Digital Line Neon Testers Line tester — counter jar DIGITAL tester line tester",
+   "photo": "photos/tester_digital.jpg"
   },
   {
    "name": "Standard Insulation Line Testers",
    "price": 20,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Standard Insulation Line Testers Line tester — counter jar TESTER tester line tester"
+   "kw": "Standard Insulation Line Testers Line tester — counter jar TESTER tester line tester",
+   "photo": "photos/tester_std.jpg"
   },
   {
    "name": "6A Flush Switches (Black Series)",
    "price": 12,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "6A Flush Switches (Black Series) Flush piano switch, black 6A BLACK switch 6 amp ampere 6a"
+   "kw": "6A Flush Switches (Black Series) Flush piano switch, black 6A BLACK switch 6 amp ampere 6a",
+   "photo": "photos/flush_switch_blk.jpg"
   },
   {
    "name": "6A Flush Sockets (Black Series)",
    "price": 12,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "6A Flush Sockets (Black Series) Flush socket, black 6A BLACK socket 6 amp ampere 6a"
+   "kw": "6A Flush Sockets (Black Series) Flush socket, black 6A BLACK socket 6 amp ampere 6a",
+   "photo": "photos/flush_socket_blk.jpg"
   },
   {
    "name": "Counter Neon Indicator (White)",
    "price": 13,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Counter Neon Indicator (White) Neon indicator unit NEON indicator neon lamp"
+   "kw": "Counter Neon Indicator (White) Neon indicator unit NEON indicator neon lamp",
+   "photo": "photos/neon_ind_white.jpg"
   },
   {
    "name": "Counter Neon Indicator (Black)",
    "price": 13,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Counter Neon Indicator (Black) Neon indicator unit NEON indicator neon lamp"
+   "kw": "Counter Neon Indicator (Black) Neon indicator unit NEON indicator neon lamp",
+   "photo": "photos/neon_ind_black.jpg"
   },
   {
    "name": "6A Flush Switches (White Series)",
    "price": 12,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "6A Flush Switches (White Series) Flush piano switch, white 6A WHITE switch 6 amp ampere 6a"
+   "kw": "6A Flush Switches (White Series) Flush piano switch, white 6A WHITE switch 6 amp ampere 6a",
+   "photo": "photos/flush_switch_wht.jpg"
   },
   {
    "name": "Parallel Wiring Blocks / Connectors",
    "price": 13,
    "unit": "per piece",
    "cat": "Counter Stock & Extension Boards",
-   "kw": "Parallel Wiring Blocks / Connectors Chocolate-block wiring connectors BLOCK connector joint block"
+   "kw": "Parallel Wiring Blocks / Connectors Chocolate-block wiring connectors BLOCK connector joint block",
+   "photo": "photos/wiring_blocks.jpg"
   }
  ]
 }

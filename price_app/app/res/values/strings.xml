@@ -9,4 +9,25 @@
     <string name="status_results">%1$d item(s) for “%2$s”</string>
     <string name="speech_prompt">Say the item name…</string>
     <string name="speech_unavailable">Voice input is not available on this phone — please type instead</string>
+    <string name="photo_desc">Item photo</string>
+    <string name="add_button">＋</string>
+    <string name="add_title">Add New Item</string>
+    <string name="add_name_label">Item name</string>
+    <string name="add_name_hint">e.g. 12W LED Street Light</string>
+    <string name="add_price_label">Selling price (₹)</string>
+    <string name="add_price_hint">e.g. 250</string>
+    <string name="add_unit_label">Sold as</string>
+    <string name="add_cat_label">Category</string>
+    <string name="add_photo_label">Photo (optional)</string>
+    <string name="add_pick_photo">Choose Photo</string>
+    <string name="add_save">Save Item</string>
+    <string name="add_need_name">Please enter the item name</string>
+    <string name="add_need_price">Please enter the selling price</string>
+    <string name="add_saved">Item saved</string>
+    <string name="delete_title">Delete this item?</string>
+    <string name="delete_msg">“%s” will be removed from your added items.</string>
+    <string name="delete_yes">Delete</string>
+    <string name="delete_no">Cancel</string>
+    <string name="deleted">Item deleted</string>
+    <string name="my_items_cat">My Items</string>
 </resources>

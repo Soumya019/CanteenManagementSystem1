@@ -8,6 +8,17 @@ same way. The price list is bundled inside the app (135 items from the
 counter sales manual), so **no internet is needed** after install — voice
 recognition uses the phone's built-in Google voice input.
 
+Since v1.1:
+
+- **Item photos** — every result row shows the product photo (the same
+  ones as the PDF manual). Tap a row to see the photo full-screen, scaled
+  to fill the display at its natural aspect ratio; tap again to close.
+- **Add your own items** — the green ＋ button opens a form: name,
+  selling price, unit, category, and an optional photo from the gallery.
+  Saved items live on the phone (`user_items.json` in app storage), are
+  searchable like any stock item, and can be removed by long-pressing
+  the row.
+
 ## Install (the easy way)
 
 1. Copy `GariaElectricPrices.apk` to the phone (WhatsApp to yourself,
