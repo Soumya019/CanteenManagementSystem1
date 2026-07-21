@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Garia Electric Prices</string>
+    <string name="search_hint">Type or speak item name…</string>
+    <string name="mic_emoji">🎤</string>
+    <string name="status_idle">Tap the mic and say the item name (e.g. “9 watt bulb”)</string>
+    <string name="status_listening">Listening…</string>
+    <string name="status_no_match">No item matched “%s” — try another word</string>
+    <string name="status_results">%1$d item(s) for “%2$s”</string>
+    <string name="speech_prompt">Say the item name…</string>
+    <string name="speech_unavailable">Voice input is not available on this phone — please type instead</string>
+</resources>
