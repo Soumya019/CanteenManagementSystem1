@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VoicePilot</string>
+
+    <!-- Notification channels -->
+    <string name="channel_service">Listener</string>
+    <string name="channel_service_description">Ongoing notice while VoicePilot is listening for the wake word.</string>
+    <string name="channel_wake">Wake screen</string>
+    <string name="channel_wake_description">Used to raise the wake screen when the display is off.</string>
+
+    <!-- Foreground service -->
+    <string name="notification_starting">Starting…</string>
+    <string name="notification_listening">Listening · %1$s</string>
+    <string name="notification_heard">Heard \"%1$s\" — what next?</string>
+    <string name="notification_engine_failed">No wake engine could start. Open VoicePilot to check permissions.</string>
+    <string name="action_stop">Stop</string>
+
+    <!-- Wake screen raise -->
+    <string name="wake_notification_title">VoicePilot</string>
+    <string name="wake_notification_text">Tap to open the wake screen</string>
+
+    <!-- Boot -->
+    <string name="boot_notification_title">VoicePilot did not auto-start</string>
+    <string name="boot_notification_text">Android 14 and later block microphone services from starting at boot. Tap to start listening.</string>
+
+    <!-- Command results -->
+    <string name="result_awake">Screen on</string>
+    <string name="result_unlocking">Unlocking</string>
+    <string name="result_time">It is %1$s</string>
+    <string name="result_torch_on">Torch on</string>
+    <string name="result_torch_off">Torch off</string>
+    <string name="result_no_torch">No flashlight available</string>
+    <string name="result_louder">Louder</string>
+    <string name="result_quieter">Quieter</string>
+    <string name="result_muted">Muted</string>
+    <string name="result_done">Done</string>
+    <string name="result_failed">That did not work</string>
+    <string name="result_cancelled">Cancelled</string>
+    <string name="result_unknown">I did not catch that</string>
+    <string name="result_which_app">Which app?</string>
+    <string name="result_opening">Opening %1$s</string>
+    <string name="result_app_not_found">I could not find %1$s</string>
+    <string name="result_app_not_launchable">%1$s cannot be opened</string>
+    <string name="result_no_number">Say the number digit by digit</string>
+
+    <!-- Wake screen -->
+    <string name="wake_listening">Listening…</string>
+    <string name="wake_unlocking">Asking the keyguard…</string>
+    <string name="wake_unlocked">Unlocked</string>
+    <string name="wake_already_unlocked">Already unlocked</string>
+    <string name="wake_unlock_cancelled">Unlock cancelled — Extend Unlock is not active, so Android asked for your credential.</string>
+    <string name="wake_unlock_error">Android refused the unlock request. Voice cannot enter your PIN, pattern or fingerprint.</string>
+    <string name="wake_unlock_button">Unlock</string>
+    <string name="wake_dismiss_button">Dismiss</string>
+
+    <!-- Setup screen -->
+    <string name="setup_title_permissions">Permissions</string>
+    <string name="setup_title_engine">Wake engine</string>
+    <string name="setup_title_phrases">Wake phrases</string>
+    <string name="setup_title_behaviour">Behaviour</string>
+    <string name="setup_title_commands">Commands</string>
+
+    <string name="setup_mic">Microphone and notifications</string>
+    <string name="setup_overlay">Display over other apps</string>
+    <string name="setup_battery">Battery optimisation disabled</string>
+    <string name="setup_full_screen_intent">Can raise the screen when locked</string>
+
+    <string name="setup_mic_button">Grant microphone</string>
+    <string name="setup_overlay_button">Allow display over other apps</string>
+    <string name="setup_battery_button">Disable battery optimisation</string>
+    <string name="setup_full_screen_intent_button">Allow full-screen notifications</string>
+    <string name="setup_extend_unlock_button">Open Extend Unlock settings</string>
+    <string name="setup_autostart_button">Open XOS auto-start manager</string>
+
+    <string name="setup_service_switch">Listening</string>
+    <string name="setup_speak_switch">Speak confirmations</string>
+    <string name="setup_auto_unlock_switch">Try to unlock as soon as the wake word fires</string>
+
+    <string name="setup_engine_auto">Automatic</string>
+    <string name="setup_engine_porcupine">Porcupine (low battery, needs a key)</string>
+    <string name="setup_engine_speech">SpeechRecognizer (no setup, heavier)</string>
+
+    <string name="setup_key_present">Picovoice key found. Porcupine is available.</string>
+    <string name="setup_key_missing">No Picovoice key. Add picovoice.accessKey to local.properties to enable Porcupine.</string>
+    <string name="setup_keyword_path">Copy trained .ppn files to:\n%1$s</string>
+
+    <string name="setup_phrases_hint">Comma-separated, e.g. gemini, hey gemini, wake up</string>
+    <string name="setup_phrases_save">Save phrases</string>
+    <string name="setup_phrases_saved">Wake phrases saved</string>
+    <string name="setup_phrases_empty">Enter at least one phrase</string>
+    <string name="setup_phrases_note">Used by the SpeechRecognizer engine. Porcupine matches your trained .ppn models instead.</string>
+
+    <string name="setup_not_needed_here">Not needed on this Android version</string>
+    <string name="setup_autostart_manual">Auto-start manager not found — allow VoicePilot manually</string>
+    <string name="setup_screen_unavailable">That settings screen is not available on this device</string>
+
+    <string name="setup_unlock_note">Unlocking never types your PIN. Pair a watch or earbuds under Extend Unlock and the keyguard dismisses silently; otherwise Android shows you the credential prompt.</string>
+</resources>
