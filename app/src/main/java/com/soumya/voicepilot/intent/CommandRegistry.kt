@@ -26,12 +26,15 @@ object CommandRegistry {
     const val CANCEL = "cancel"
     const val OPEN_APP = "open_app"
     const val DIAL = "dial"
+    const val PLAY_MEDIA = "play_media"
 
     val commands: List<Command> = listOf(
         // Prefix commands are checked first, so their argument text cannot drag
         // a phrase command's score down.
         Command.Prefix(OPEN_APP, listOf("open", "launch", "start", "run", "go to")),
         Command.Prefix(DIAL, listOf("call", "dial", "phone")),
+        // "start playing x" beats OPEN_APP's "start x" on the longest-verb rule.
+        Command.Prefix(PLAY_MEDIA, listOf("play", "put on", "listen to", "start playing")),
 
         Command.Phrase(
             WAKE_SCREEN,

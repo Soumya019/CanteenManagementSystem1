@@ -16,8 +16,20 @@ class IntentMatcher(
         val normalized = TextSimilarity.normalize(utterance)
         if (normalized.isEmpty()) return null
 
-        matchPrefix(normalized)?.let { return it }
+        val phrase = bestPhrase(normalized)
+        val leading = TextSimilarity.stripLeadingFillers(utterance)
 
+        // A near-exact phrase outranks a prefix reading of the same words:
+        // "play music" is the media toggle, not a request to go and find a song
+        // called "music". Anything longer than the phrase falls through.
+        if (phrase != null && phrase.score >= EXACT_ENOUGH) return phrase
+
+        matchPrefix(leading)?.let { return it }
+
+        return phrase?.takeIf { it.score >= threshold }
+    }
+
+    private fun bestPhrase(normalized: String): CommandMatch? {
         var best: CommandMatch? = null
         for (command in commands) {
             if (command !is Command.Phrase) continue
@@ -31,22 +43,25 @@ class IntentMatcher(
                 }
             }
         }
-        return best?.takeIf { it.score >= threshold }
+        return best
     }
 
-    /** Picks the longest matching verb so "go to settings" beats "go". */
-    private fun matchPrefix(normalized: String): CommandMatch? {
+    /**
+     * Picks the longest matching verb, so "go to settings" beats "go" and
+     * "start playing x" beats "start x".
+     */
+    private fun matchPrefix(leading: String): CommandMatch? {
         var bestVerbLength = 0
         var result: CommandMatch? = null
 
         for (command in commands) {
             if (command !is Command.Prefix) continue
             for (verb in command.verbs) {
-                val normalizedVerb = TextSimilarity.normalize(verb)
+                val normalizedVerb = TextSimilarity.normalizeLight(verb)
                 if (normalizedVerb.isEmpty()) continue
-                if (!normalized.startsWith("$normalizedVerb ")) continue
+                if (!leading.startsWith("$normalizedVerb ")) continue
 
-                val argument = normalized.removePrefix("$normalizedVerb ").trim()
+                val argument = leading.removePrefix("$normalizedVerb ").trim()
                 if (argument.isEmpty()) continue
 
                 if (normalizedVerb.length > bestVerbLength) {
@@ -56,5 +71,9 @@ class IntentMatcher(
             }
         }
         return result
+    }
+
+    private companion object {
+        const val EXACT_ENOUGH = 0.95
     }
 }

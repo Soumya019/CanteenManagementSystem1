@@ -85,6 +85,39 @@ class IntentMatcherTest {
     }
 
     @Test
+    fun `bare transport words stay as media control, not a search`() {
+        assertEquals(CommandRegistry.MEDIA_TOGGLE, matcher.match("play")?.id)
+        assertEquals(CommandRegistry.MEDIA_TOGGLE, matcher.match("pause")?.id)
+        // The exact-phrase rule: this must not become a hunt for a song called "music".
+        assertEquals(CommandRegistry.MEDIA_TOGGLE, matcher.match("play music")?.id)
+    }
+
+    @Test
+    fun `play with a query becomes a media search`() {
+        val match = matcher.match("play despacito")
+        assertEquals(CommandRegistry.PLAY_MEDIA, match?.id)
+        assertEquals("despacito", match?.argument)
+    }
+
+    @Test
+    fun `a query keeps words the command matcher would treat as filler`() {
+        // "you" is a filler when scoring commands, but it is part of this title.
+        val match = matcher.match("hey Gemini, please play Shape of You on Spotify")
+        assertEquals(CommandRegistry.PLAY_MEDIA, match?.id)
+        assertEquals("shape of you on spotify", match?.argument)
+    }
+
+    @Test
+    fun `other ways of asking to play something`() {
+        assertEquals("lofi beats", matcher.match("listen to lofi beats")?.argument)
+        assertEquals("some jazz", matcher.match("put on some jazz")?.argument)
+        assertEquals(
+            CommandRegistry.PLAY_MEDIA,
+            matcher.match("start playing the daily on audible")?.id,
+        )
+    }
+
+    @Test
     fun `unrelated speech is rejected rather than guessed`() {
         assertNull(matcher.match("remind me to buy vegetables on the way home"))
         assertNull(matcher.match("asdfgh qwerty"))

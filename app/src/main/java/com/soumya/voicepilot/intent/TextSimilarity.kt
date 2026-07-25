@@ -30,11 +30,25 @@ object TextSimilarity {
             .filter { it.isNotBlank() }
             .joinToString(" ")
 
-    /** [normalizeLight] plus filler removal. Used for commands. */
+    /** [normalizeLight] plus filler removal. Used for scoring commands. */
     fun normalize(text: String): String =
         normalizeLight(text)
             .split(' ')
             .filter { it.isNotBlank() && it !in FILLERS }
+            .joinToString(" ")
+
+    /**
+     * Drops only the fillers at the front, keeping the rest of the words intact.
+     *
+     * This is the form prefix commands are matched against, because a filler in
+     * the middle of an utterance is usually content: "play shape of you on
+     * spotify" must not lose its "you", even though [normalize] is right to drop
+     * the same word when scoring "can you unlock my phone".
+     */
+    fun stripLeadingFillers(text: String): String =
+        normalizeLight(text)
+            .split(' ')
+            .dropWhile { it.isBlank() || it in FILLERS }
             .joinToString(" ")
 
     /** 0.0 (nothing in common) to 1.0 (identical). */

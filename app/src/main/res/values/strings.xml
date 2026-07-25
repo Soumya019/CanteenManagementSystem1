@@ -42,6 +42,11 @@
     <string name="result_app_not_found">I could not find %1$s</string>
     <string name="result_app_not_launchable">%1$s cannot be opened</string>
     <string name="result_no_number">Say the number digit by digit</string>
+    <string name="result_what_to_play">What should I play?</string>
+    <string name="result_playing">Playing %1$s</string>
+    <string name="result_playing_on">Playing %1$s on %2$s</string>
+    <string name="result_searching_on">Searching %2$s for %1$s</string>
+    <string name="result_no_media_app">No app here handles \"play\" requests</string>
 
     <!-- Wake screen -->
     <string name="wake_listening">Listening…</string>

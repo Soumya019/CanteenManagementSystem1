@@ -135,6 +135,35 @@ flashlight on / off       wifi / bluetooth         play / pause / next / previou
 settings                  cancel
 ```
 
+### Playing something by name
+
+```
+play shape of you on spotify        listen to lofi beats
+play <podcast> on youtube           put on some jazz
+start playing <book> on audible     play despacito          (no app named)
+```
+
+Bare transport words stay transport words — "play", "pause" and "play music"
+control whatever is already playing. Adding a query is what turns it into a
+search.
+
+Naming the app is optional. With one, the query is routed there; without one it
+goes to whatever the system has registered for media search. Known apps —
+Spotify, YouTube, YouTube Music, Audible, Amazon Music, JioSaavn, Gaana, Wynk,
+SoundCloud — get better routing via `MediaApps`, and anything else still works by
+matching the spoken name against installed app labels.
+
+**Whether it plays or just searches is the app's decision, not this app's.**
+Spotify and YouTube Music honour `INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH` and start
+playing. The main YouTube app generally lands on search results and waits for a
+tap. Four routes are tried in descending order of directness — play-from-search,
+in-app search, deep link, then just launching the app — and the spoken
+confirmation tells you which one took it ("Playing…" vs "Searching…").
+
+Playback started while the phone is locked puts the media app behind the
+keyguard. Audio usually starts anyway, but if you want to see and touch the app,
+unlock first — which is exactly what Extend Unlock makes painless.
+
 Adding one is two edits — an entry in `CommandRegistry` and a branch in
 `ActionDispatcher`:
 
