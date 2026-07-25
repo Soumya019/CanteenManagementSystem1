@@ -147,6 +147,47 @@
             android:layout_marginTop="8dp"
             android:textAppearance="?attr/textAppearanceBodySmall" />
 
+        <EditText
+            android:id="@+id/accessKeyInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/setup_key_hint"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/saveKeyButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/setup_key_save" />
+
+        <TextView
+            android:id="@+id/keywordListText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <Button
+            android:id="@+id/importKeywordsButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/setup_keywords_import" />
+
+        <Button
+            android:id="@+id/clearKeywordsButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/setup_keywords_clear" />
+
         <TextView
             android:id="@+id/keywordPathText"
             android:layout_width="match_parent"

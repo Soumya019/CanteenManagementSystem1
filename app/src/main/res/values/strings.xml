@@ -80,9 +80,19 @@
     <string name="setup_engine_porcupine">Porcupine (low battery, needs a key)</string>
     <string name="setup_engine_speech">SpeechRecognizer (no setup, heavier)</string>
 
-    <string name="setup_key_present">Picovoice key found. Porcupine is available.</string>
-    <string name="setup_key_missing">No Picovoice key. Add picovoice.accessKey to local.properties to enable Porcupine.</string>
-    <string name="setup_keyword_path">Copy trained .ppn files to:\n%1$s</string>
+    <string name="setup_key_present">Picovoice key set. Porcupine is available.</string>
+    <string name="setup_key_missing">No Picovoice key, so only the SpeechRecognizer engine can run.</string>
+    <string name="setup_key_hint">Picovoice AccessKey</string>
+    <string name="setup_key_save">Save key</string>
+    <string name="setup_key_saved">Key saved</string>
+    <string name="setup_keyword_path">Model folder:\n%1$s</string>
+    <string name="setup_keywords_none">No wake-word models imported. Porcupine will use the built-in \"jarvis\" keyword.</string>
+    <string name="setup_keywords_list">Wake-word models: %1$s</string>
+    <string name="setup_keywords_import">Import .ppn wake-word models</string>
+    <string name="setup_keywords_clear">Remove imported models</string>
+    <string name="setup_keywords_imported">Imported %1$d model(s)</string>
+    <string name="setup_keywords_imported_partial">Imported %1$d, skipped %2$d (only .ppn files are accepted)</string>
+    <string name="setup_keywords_cleared">Models removed</string>
 
     <string name="setup_phrases_hint">Comma-separated, e.g. gemini, hey gemini, wake up</string>
     <string name="setup_phrases_save">Save phrases</string>

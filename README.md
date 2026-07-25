@@ -32,16 +32,38 @@ Anything that genuinely bypasses this needs root or Shizuku-level input
 injection, means storing your PIN in plaintext, and hands your lock screen to
 anyone who can say the phrase out loud. This app does not go there.
 
-## Build
+## Install on the phone, without a PC
+
+Every push builds the APK in CI and attaches it to a rolling prerelease, so the
+download link never changes:
+
+**`https://github.com/Soumya019/CanteenManagementSystem1/releases/tag/latest-debug`**
+
+1. Open that link in Chrome on the phone and tap **voicepilot-debug.apk**.
+2. Chrome asks to allow installing unknown apps — allow it for Chrome, then tap
+   the download again.
+3. XOS scans the file and may warn that it came from an unknown source. Choose
+   **Install anyway**. Play Protect may add its own prompt; **Install without
+   scanning** is fine, this is your own debug build.
+
+It is signed with the standard Android debug key, which is enough to install but
+not to publish. Nothing else is needed — the Picovoice key and wake-word models
+are both entered inside the app.
+
+If the release is not there yet, the workflow may still be running: check the
+**Actions** tab, or trigger *Build APK* → *Run workflow* manually.
+
+## Build from a checkout
 
 ```bash
 echo "sdk.dir=$ANDROID_HOME" > local.properties
-./gradlew :app:assembleDebug        # or: gradle :app:assembleDebug
+./gradlew :app:assembleDebug
 ./gradlew :app:testDebugUnitTest    # intent matcher tests
 ```
 
 Requires JDK 17+, Android SDK 35. The APK lands in
-`app/build/outputs/apk/debug/`.
+`app/build/outputs/apk/debug/`. Optionally add `picovoice.accessKey=...` to
+`local.properties` to bake the key in instead of typing it on the setup screen.
 
 ## First run
 
@@ -80,22 +102,23 @@ battery: it holds the mic continuously. Fine for trying this out, not for leavin
 on all day.
 
 **Porcupine (recommended).** On-device keyword spotting at a couple of percent
-CPU. Needs a free AccessKey:
+CPU. Needs a free AccessKey, and the whole setup works from the phone browser:
 
-1. Get one at [console.picovoice.ai](https://console.picovoice.ai).
-2. Add it to `local.properties` (git-ignored):
-   ```properties
-   picovoice.accessKey=YOUR_KEY
-   ```
-   or export `PICOVOICE_ACCESS_KEY`.
-3. Train each wake phrase in the console, download the Android `.ppn` files, and
-   copy them to the path shown on the setup screen
-   (`/data/data/com.soumya.voicepilot/files/keywords/`, reachable via
-   `adb push` … `run-as`).
+1. Sign up at [console.picovoice.ai](https://console.picovoice.ai) and copy your
+   AccessKey into the field on the setup screen. (Or bake it in at build time via
+   `local.properties` — the in-app key wins if both are set.)
+2. In the console, train each wake phrase and download it for **Android**. Each
+   one is a `.ppn` file that lands in Downloads.
+3. Back in the app, tap **Import .ppn wake-word models** and pick them. They are
+   copied into the app's private storage, which is why importing exists at all —
+   nothing on the phone can write there directly.
 
 Train **one model per wording you actually use** — `gemini`, `hey_gemini`,
 `wake_up`. Keyword spotting matches fixed phrases; it does not paraphrase. The
 flexibility lives in the command layer, after the wake word.
+
+Models are platform-specific: a `.ppn` trained for another platform will fail to
+load, and the app falls back to the SpeechRecognizer engine.
 
 With a key but no `.ppn` files yet, Porcupine runs on the built-in `JARVIS`
 keyword so you can test the whole pipeline immediately.

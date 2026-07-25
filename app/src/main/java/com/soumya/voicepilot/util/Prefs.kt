@@ -27,6 +27,15 @@ class Prefs(context: Context) {
             .putString(KEY_WAKE_PHRASES, value.joinToString("|"))
             .apply()
 
+    /**
+     * Picovoice AccessKey entered on the setup screen. Takes precedence over the
+     * build-time key, which is the only way to reach Porcupine when the APK was
+     * built by CI rather than from a checkout with local.properties.
+     */
+    var accessKey: String
+        get() = store.getString(KEY_ACCESS_KEY, "").orEmpty()
+        set(value) = store.edit().putString(KEY_ACCESS_KEY, value.trim()).apply()
+
     /** Try to dismiss the keyguard as soon as the wake word fires, without waiting for "unlock". */
     var autoUnlockOnWake: Boolean
         get() = store.getBoolean(KEY_AUTO_UNLOCK, false)
@@ -50,6 +59,7 @@ class Prefs(context: Context) {
         val DEFAULT_WAKE_PHRASES = listOf("gemini", "hey gemini", "wake up", "jarvis")
 
         private const val KEY_ENGINE = "engine"
+        private const val KEY_ACCESS_KEY = "access_key"
         private const val KEY_WAKE_PHRASES = "wake_phrases"
         private const val KEY_AUTO_UNLOCK = "auto_unlock"
         private const val KEY_SPEAK = "speak"

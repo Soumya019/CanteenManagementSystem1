@@ -120,7 +120,9 @@ class VoicePilotService : Service() {
     }
 
     private fun preferredEngine(): WakeWordEngine {
-        val accessKey = BuildConfig.PICOVOICE_ACCESS_KEY
+        // A key typed on the setup screen wins over the build-time one, so a
+        // CI-built APK can still reach Porcupine.
+        val accessKey = prefs.accessKey.ifBlank { BuildConfig.PICOVOICE_ACCESS_KEY }
         val wantsPorcupine = when (prefs.engine) {
             Prefs.ENGINE_PORCUPINE -> true
             Prefs.ENGINE_SPEECH -> false

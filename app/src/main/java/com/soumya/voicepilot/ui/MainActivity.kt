@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
+import android.provider.OpenableColumns
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +23,7 @@ import com.soumya.voicepilot.intent.CommandRegistry
 import com.soumya.voicepilot.service.VoicePilotService
 import com.soumya.voicepilot.util.Prefs
 import com.soumya.voicepilot.wake.PorcupineEngine
+import java.io.File
 
 /** Setup and status. Everything that needs a human tap once lives here. */
 class MainActivity : AppCompatActivity() {
@@ -33,6 +35,15 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissions = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
     ) { render() }
+
+    /**
+     * Wake-word models live in the app's private storage, which nothing on the
+     * phone can write to directly — so they are imported through the document
+     * picker instead of needing adb.
+     */
+    private val importKeywords = registerForActivityResult(
+        ActivityResultContracts.OpenMultipleDocuments(),
+    ) { uris -> importKeywordFiles(uris) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +59,18 @@ class MainActivity : AppCompatActivity() {
         binding.fullScreenIntentButton.setOnClickListener { openFullScreenIntentSettings() }
         binding.extendUnlockButton.setOnClickListener { openSecuritySettings() }
         binding.autostartButton.setOnClickListener { openAutoStartSettings() }
+
+        // "*/*" because Android has no MIME type for .ppn, so the picker would
+        // otherwise grey the files out.
+        binding.importKeywordsButton.setOnClickListener { importKeywords.launch(arrayOf("*/*")) }
+        binding.clearKeywordsButton.setOnClickListener { clearKeywordFiles() }
+
+        binding.saveKeyButton.setOnClickListener {
+            prefs.accessKey = binding.accessKeyInput.text.toString()
+            restartIfRunning()
+            render()
+            toast(getString(R.string.setup_key_saved))
+        }
 
         binding.serviceSwitch.setOnCheckedChangeListener { button, isChecked ->
             if (!button.isPressed) return@setOnCheckedChangeListener
@@ -125,17 +148,76 @@ class MainActivity : AppCompatActivity() {
         binding.fullScreenIntentStatus.text =
             statusLine(R.string.setup_full_screen_intent, screen.canRaiseScreen())
 
-        binding.keyStatus.text = if (BuildConfig.PICOVOICE_ACCESS_KEY.isBlank()) {
-            getString(R.string.setup_key_missing)
-        } else {
-            getString(R.string.setup_key_present)
-        }
+        binding.accessKeyInput.setText(prefs.accessKey)
+        val hasKey = prefs.accessKey.isNotBlank() || BuildConfig.PICOVOICE_ACCESS_KEY.isNotBlank()
+        binding.keyStatus.text = getString(
+            if (hasKey) R.string.setup_key_present else R.string.setup_key_missing,
+        )
 
         binding.keywordPathText.text = getString(
             R.string.setup_keyword_path,
             PorcupineEngine.keywordDirectory(this).absolutePath,
         )
+
+        val models = keywordFiles().map { it.nameWithoutExtension }
+        binding.keywordListText.text = if (models.isEmpty()) {
+            getString(R.string.setup_keywords_none)
+        } else {
+            getString(R.string.setup_keywords_list, models.joinToString(", "))
+        }
+        binding.clearKeywordsButton.isEnabled = models.isNotEmpty()
     }
+
+    private fun keywordFiles(): List<File> =
+        PorcupineEngine.keywordDirectory(this)
+            .listFiles { file -> file.isFile && file.extension.equals("ppn", true) }
+            ?.sortedBy { it.name }
+            .orEmpty()
+
+    private fun importKeywordFiles(uris: List<Uri>) {
+        if (uris.isEmpty()) return
+
+        val directory = PorcupineEngine.keywordDirectory(this)
+        var imported = 0
+        var skipped = 0
+
+        for (uri in uris) {
+            val name = displayName(uri)?.substringAfterLast('/')
+            if (name == null || !name.endsWith(".ppn", ignoreCase = true)) {
+                skipped++
+                continue
+            }
+            val copied = runCatching {
+                contentResolver.openInputStream(uri)?.use { input ->
+                    File(directory, name).outputStream().use(input::copyTo)
+                } != null
+            }.getOrDefault(false)
+
+            if (copied) imported++ else skipped++
+        }
+
+        toast(
+            if (skipped == 0) {
+                getString(R.string.setup_keywords_imported, imported)
+            } else {
+                getString(R.string.setup_keywords_imported_partial, imported, skipped)
+            },
+        )
+        restartIfRunning()
+        render()
+    }
+
+    private fun clearKeywordFiles() {
+        keywordFiles().forEach { it.delete() }
+        toast(getString(R.string.setup_keywords_cleared))
+        restartIfRunning()
+        render()
+    }
+
+    private fun displayName(uri: Uri): String? =
+        contentResolver
+            .query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
+            ?.use { cursor -> if (cursor.moveToFirst()) cursor.getString(0) else null }
 
     private fun statusLine(labelRes: Int, granted: Boolean): String {
         val mark = if (granted) "✓" else "✗"
