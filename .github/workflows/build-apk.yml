@@ -1,0 +1,58 @@
+name: Build APK
+
+# Builds an installable debug APK and attaches it to a rolling prerelease, so it
+# can be downloaded and sideloaded straight from the phone with no PC involved.
+on:
+  push:
+    branches:
+      - main
+      - claude/phone-voice-automation-9uhy45
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Run unit tests
+        run: ./gradlew :app:testDebugUnitTest --no-daemon
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug --no-daemon
+
+      - name: Name the APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk voicepilot-debug.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voicepilot-debug-apk
+          path: voicepilot-debug.apk
+
+      # A fixed tag keeps the download URL stable, so the same link on the phone
+      # always fetches the newest build.
+      - name: Publish to the rolling prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view latest-debug >/dev/null 2>&1; then
+            gh release upload latest-debug voicepilot-debug.apk --clobber
+          else
+            gh release create latest-debug voicepilot-debug.apk \
+              --target "$GITHUB_SHA" \
+              --title "VoicePilot (debug)" \
+              --notes "Debug build, signed with the standard Android debug key. Download the .apk below on your phone and install it." \
+              --prerelease
+          fi

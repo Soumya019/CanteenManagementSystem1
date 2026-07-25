@@ -1,0 +1,23 @@
+[versions]
+agp = "8.13.2"
+kotlin = "2.2.21"
+coreKtx = "1.13.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+lifecycle = "2.8.7"
+coroutines = "1.9.0"
+porcupine = "4.0.2"
+junit = "4.13.2"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+porcupine-android = { group = "ai.picovoice", name = "porcupine-android", version.ref = "porcupine" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
