@@ -865,8 +865,11 @@ SECTIONS = [
              sub="Ajonta 2x3x3 — 10 pcs/box, MRP ₹45", est=True),
         item("2x4x7 Board (4-Cut Plain)", 80, "pc", "combined", None, "2X4X7",
              sub="Ajonta 4-cut plain — 5 pcs/box, MRP ₹90", est=True),
-        item("8/10 Way Switch Board (Aavtar)", 58, "pc", "switch", None,
-             "8/10", sub="AAVTAR PLAST white/ivory — pack MRP ₹650", est=True),
+        item("8/10 Way Switch Board (Aavtar)", 115, "pc", "switch", None,
+             "8/10", sub="AAVTAR PLAST white/ivory — 5 pcs/box, MRP ₹650",
+             est=True),
+        item("8x6 Plain Switch Board (Aavtar)", 100, "pc", "combined", None,
+             "8X6", sub="AAVTAR PLAST 9-cut ivory — 5 pcs/box, MRP ₹560"),
     ]),
 
     ("Aavtar Modular Surface Gang Boxes", "#00838F", [
@@ -964,6 +967,14 @@ SECTIONS = [
         item("Power Strip / Spike Guard (6+1)", 300, "pc", "extension", None,
              "6+1", sub="KE 6A 240V, fuse protected computer spike guard",
              est=True),
+        item("95mm Round Sheet (Neon Glow)", 16, "pc", "ceilingrose", None,
+             "95 MM", sub="AAVTAR round base plate — jar MRP ₹450; per-piece "
+             "rate assumes 25 pcs/jar", est=True),
+        item("85mm Round Sheet (Neon Glow)", 15, "pc", "ceilingrose", None,
+             "85 MM", sub="AAVTAR round base plate — jar MRP ₹450; per-piece "
+             "rate assumes 25 pcs/jar", est=True),
+        item("MCB Distribution Box (Aashiyana)", 280, "pc", "meterbox", None,
+             "MCB BOX", sub="AASHIYANA metal DB with ON/OFF window", est=True),
     ]),
 ]
 

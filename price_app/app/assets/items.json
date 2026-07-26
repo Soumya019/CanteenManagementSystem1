@@ -1307,12 +1307,21 @@
   },
   {
    "name": "8/10 Way Switch Board (Aavtar)",
-   "price": 58,
+   "price": 115,
    "unit": "per piece",
    "cat": "Ajonta PVC Switch Boards",
-   "kw": "8/10 Way Switch Board (Aavtar) AAVTAR PLAST white/ivory — pack MRP ₹650 8/10 switch 8 by 10 810",
+   "kw": "8/10 Way Switch Board (Aavtar) AAVTAR PLAST white/ivory — 5 pcs/box, MRP ₹650 8/10 switch 8 by 10 810",
    "photo": "photos/board_aavtar810.jpg",
    "est": true
+  },
+  {
+   "name": "8x6 Plain Switch Board (Aavtar)",
+   "price": 100,
+   "unit": "per piece",
+   "cat": "Ajonta PVC Switch Boards",
+   "kw": "8x6 Plain Switch Board (Aavtar) AAVTAR PLAST 9-cut ivory — 5 pcs/box, MRP ₹560 8X6 switch",
+   "photo": "photos/board_aavtar8x6.jpg",
+   "est": false
   },
   {
    "name": "2 Modular Surface Gang Box",
@@ -1627,6 +1636,33 @@
    "cat": "New Counter Stock",
    "kw": "Power Strip / Spike Guard (6+1) KE 6A 240V, fuse protected computer spike guard 6+1 ",
    "photo": "photos/powerstrip_ke.jpg",
+   "est": true
+  },
+  {
+   "name": "95mm Round Sheet (Neon Glow)",
+   "price": 16,
+   "unit": "per piece",
+   "cat": "New Counter Stock",
+   "kw": "95mm Round Sheet (Neon Glow) AAVTAR round base plate — jar MRP ₹450; per-piece rate assumes 25 pcs/jar 95 MM 95 mm",
+   "photo": "photos/round_sheet.jpg",
+   "est": true
+  },
+  {
+   "name": "85mm Round Sheet (Neon Glow)",
+   "price": 15,
+   "unit": "per piece",
+   "cat": "New Counter Stock",
+   "kw": "85mm Round Sheet (Neon Glow) AAVTAR round base plate — jar MRP ₹450; per-piece rate assumes 25 pcs/jar 85 MM 85 mm",
+   "photo": "photos/round_sheet.jpg",
+   "est": true
+  },
+  {
+   "name": "MCB Distribution Box (Aashiyana)",
+   "price": 280,
+   "unit": "per piece",
+   "cat": "New Counter Stock",
+   "kw": "MCB Distribution Box (Aashiyana) AASHIYANA metal DB with ON/OFF window MCB BOX mcb breaker",
+   "photo": "photos/mcb_box_aashiyana.jpg",
    "est": true
   }
  ]
