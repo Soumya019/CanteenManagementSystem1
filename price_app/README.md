@@ -19,6 +19,20 @@ Since v1.1:
   searchable like any stock item, and can be removed by long-pressing
   the row.
 
+Since v1.3:
+
+- **46 new items** from the 26-Jul-2026 shelf photos (Ajonta PVC switch
+  boards, Aavtar modular surface gang boxes, casing-capping joints, metal
+  concealed boxes, Chamak flex pipes, heavy copper wire coils, HDPE pipe
+  and new counter stock). Where the carton prints an MRP the rate is that
+  MRP less 10%; the rest are market estimates shown with an orange
+  *"estimated rate — please confirm"* note.
+- **Edit any price** — long-press an item and choose *Edit price*. The
+  dialog always shows the app's default price, and a *Reset to original*
+  button restores it. Edited items show a green *"your price (default was
+  ₹X)"* note, so the original is never lost. Prices are stored on the
+  phone and survive app updates.
+
 Since v1.2:
 
 - **Automatic photo for new items** — if you save a new item without

@@ -37,4 +37,18 @@
     <string name="photo_auto_missing">No photo found online — item saved without photo</string>
     <string name="need_name_first">Enter the item name first</string>
     <string name="auto_photo_note">If you save without a photo, the app will search the internet for this item and attach the best photo automatically (needs internet at that moment).</string>
+    <string name="est_note">estimated rate — please confirm</string>
+    <string name="edited_note">your price</string>
+    <string name="edited_note_was">your price (default was ₹%1$d)</string>
+    <string name="original_price">Default price: ₹%1$d %2$s</string>
+    <string name="edit_price_title">Set price for %s</string>
+    <string name="edit_price_hint">Selling price in ₹</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset_price">Reset to original</string>
+    <string name="price_saved">Price updated</string>
+    <string name="price_reset">Price reset</string>
+    <string name="row_actions_title">%s</string>
+    <string name="action_edit_price">Edit price</string>
+    <string name="action_delete">Delete item</string>
 </resources>

@@ -532,9 +532,13 @@ def make_icon(path, kind, brand=None, label=None, **kw):
 
 # ------------------------------------------------------------------ items ---
 
-def item(name, price, unit, kind, brand=None, label=None, sub="", **kw):
+def item(name, price, unit, kind, brand=None, label=None, sub="", est=False,
+         **kw):
+    """One sellable line. est=True marks a price the shop still has to
+    confirm (no MRP printed on the pack, so the figure is a market
+    estimate rather than a ledger-derived rate)."""
     return dict(name=name, price=price, unit=unit, kind=kind, brand=brand,
-                label=label, sub=sub, kw=kw)
+                label=label, sub=sub, est=est, kw=kw)
 
 
 SECTIONS = [
@@ -835,10 +839,136 @@ SECTIONS = [
         item("Parallel Wiring Blocks / Connectors", 13, "pc", "connector", None,
              "BLOCK", sub="Chocolate-block wiring connectors"),
     ]),
+
+    # ---------------------------------------------------------------- 2026
+    # Stock added 26-Jul-2026 from the shop photos. Where the carton prints
+    # an MRP the rate below is that MRP less 10%; everything else is a
+    # market estimate flagged est=True for the shop to confirm.
+    ("Ajonta PVC Switch Boards", "#26466D", [
+        item("2-Way Nano Switch Board", 29, "pc", "switch", None, "2 WAY",
+             sub="Ajonta Nano — 20 pcs/box, MRP ₹32.50", est=True),
+        item("3-Way Nano Switch Board", 36, "pc", "switch", None, "3 WAY",
+             sub="Ajonta Nano — 20 pcs/box, MRP ₹40"),
+        item("4-Way Nano Switch Board", 36, "pc", "switch", None, "4 WAY",
+             sub="Ajonta Nano — 20 pcs/box, MRP ₹40", est=True),
+        item("6-Way Nano Switch Board", 54, "pc", "switch", None, "6 WAY",
+             sub="Ajonta Nano — 10 pcs/box, MRP ₹60"),
+        item("7-Way Nano Switch Board", 72, "pc", "switch", None, "7 WAY",
+             sub="Ajonta Nano — 10 pcs/box, MRP ₹80"),
+        item("8-Way Nano Switch Board (Heavy Duty)", 95, "pc", "switch", None,
+             "8 WAY", sub="Ajonta Nano heavy duty — 10 pcs/box, MRP ₹105"),
+        item("6x4 Switch Board (Heavy Duty)", 40, "pc", "combined", None,
+             "6X4", sub="Ajonta heavy duty — 10 pcs/box, MRP ₹45"),
+        item("8x6 Switch Board", 95, "pc", "combined", None, "8X6",
+             sub="Ajonta 2x8x6 — 5 pcs/box, MRP ₹106"),
+        item("3x3 Switch Board", 40, "pc", "combined", None, "3X3",
+             sub="Ajonta 2x3x3 — 10 pcs/box, MRP ₹45", est=True),
+        item("2x4x7 Board (4-Cut Plain)", 80, "pc", "combined", None, "2X4X7",
+             sub="Ajonta 4-cut plain — 5 pcs/box, MRP ₹90", est=True),
+        item("8/10 Way Switch Board (Aavtar)", 58, "pc", "switch", None,
+             "8/10", sub="AAVTAR PLAST white/ivory — pack MRP ₹650", est=True),
+    ]),
+
+    ("Aavtar Modular Surface Gang Boxes", "#00838F", [
+        item("2 Modular Surface Gang Box", 70, "pc", "modulebox", None,
+             "2 MOD", sub="AAVTAR Silver Line — 10 pcs/box", est=True, n=2),
+        item("3 Modular Surface Gang Box", 80, "pc", "modulebox", None,
+             "3 MOD", sub="AAVTAR Silver Line — 10 pcs/box", est=True, n=3),
+        item("4 Modular Surface Gang Box", 90, "pc", "modulebox", None,
+             "4 MOD", sub="AAVTAR Silver Line — MRP ₹100", n=4),
+        item("6 Modular Surface Gang Box", 115, "pc", "modulebox", None,
+             "6 MOD", sub="AAVTAR Silver Line — MRP ₹130", n=6),
+        item("8 Modular Surface Gang Box", 150, "pc", "modulebox", None,
+             "8 MOD", sub="AAVTAR Silver Line — MRP ₹165", n=8),
+        item("12 Modular Surface Gang Box", 170, "pc", "modulebox", None,
+             "12 MOD", sub="AAVTAR Silver Line — MRP ₹190", n=12),
+    ]),
+
+    ("Casing-Capping, Conduit & Metal Boxes", "#5D4037", [
+        item("1 Inch Casing Internal Bend", 4, "pc", "connector", None, "1 IN",
+             sub="Ajonta ivory push-fit — 100 pcs/box, MRP ₹4.50"),
+        item("1 Inch Casing External Bend", 4, "pc", "connector", None, "1 IN",
+             sub="Ajonta ivory push-fit — 100 pcs/box, MRP ₹4.50"),
+        item("1 Inch Casing Elbow", 4, "pc", "connector", None, "1 IN",
+             sub="Ajonta ivory push-fit — 100 pcs/box, MRP ₹4.50"),
+        item("20x25mm Casing Elbow (3/4 Inch)", 4, "pc", "connector", None,
+             "20X25", sub="Ajonta ivory push-fit — 100 pcs/box", est=True),
+        item("20x25mm Casing Tee (3/4 Inch)", 4, "pc", "connector", None,
+             "20X25", sub="Ajonta ivory push-fit — 100 pcs/box", est=True),
+        item("PVC Casing-Capping Length", 40, "len", "connector", None,
+             "CASING", sub="AAVTAR trunking profile — sold per length",
+             est=True),
+        item("1 Module MS Concealed Box", 25, "pc", "modulebox", None, "1 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=1),
+        item("2 Module MS Concealed Box", 30, "pc", "modulebox", None, "2 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=2),
+        item("3 Module MS Concealed Box", 40, "pc", "modulebox", None, "3 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=3),
+        item("4 Module MS Concealed Box", 50, "pc", "modulebox", None, "4 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=4),
+        item("6 Module MS Concealed Box", 70, "pc", "modulebox", None, "6 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=6),
+        item("8 Module MS Concealed Box", 90, "pc", "modulebox", None, "8 MOD",
+             sub="Metal concealed box — golden & GI stocked", est=True, n=8),
+        item("Round Metal Fan Box", 45, "pc", "modulebox", None, "FAN BOX",
+             sub="Round concealed fan/light box with rod", est=True, n=1),
+    ]),
+
+    ("Flexible Pipes & HDPE", "#455A64", [
+        item("16mm Corrugated Flex Pipe", 420, "coil", "coil", None, "16 MM",
+             sub="CHAMAK Power+ white — 50 m coil", est=True,
+             c1="#F2F4F6", c2="#C9CDD4"),
+        item("20mm Corrugated Flex Pipe", 520, "coil", "coil", None, "20 MM",
+             sub="CHAMAK Power+ white — 50 m coil", est=True,
+             c1="#F2F4F6", c2="#C9CDD4"),
+        item("25mm Corrugated Flex Pipe", 450, "coil", "coil", None, "25 MM",
+             sub="CHAMAK Super grey — 30 m coil", est=True,
+             c1="#9AA2AB", c2="#C9CDD4"),
+        item("HDPE Water Pipe (Bandhan Plus)", 22, "mtr", "coil", None, "HDPE",
+             sub="BANDHAN PLUS No.1 HDPE — sold per metre", est=True,
+             c1="#8B4A3A", c2="#C62828"),
+        item("HDPE Water Pipe (Aashiyana)", 22, "mtr", "coil", None, "HDPE",
+             sub="AASHIYANA HDPE — sold per metre", est=True,
+             c1="#C0705F", c2="#E8E4DA"),
+    ]),
+
+    ("Heavy Copper Wire Coils", "#8D6E63", [
+        item("7/20 Copper Wire Coil", 770, "coil", "coil", None, "7/20",
+             sub="1.5 sqmm class house wire — coil", est=True,
+             c1="#C62828", c2="#F2C400"),
+        item("4 MM Copper Wire Coil", 2000, "coil", "coil", None, "4 MM",
+             sub="Heavy gauge single core — AC/geyser lines", est=True,
+             c1="#C62828", c2="#2E7D32"),
+        item("6 MM Copper Wire Coil", 3000, "coil", "coil", None, "6 MM",
+             sub="Heavy gauge single core — mains/sub-main", est=True,
+             c1="#C62828", c2="#3A3F45"),
+        item("8 MM Copper Wire Coil", 4000, "coil", "coil", None, "8 MM",
+             sub="Heavy gauge single core — mains", est=True,
+             c1="#F2C400", c2="#E8E4DA"),
+        item("10 MM Copper Wire Coil", 4900, "coil", "coil", None, "10 MM",
+             sub="Heavy gauge single core — main incomer", est=True,
+             c1="#F2C400", c2="#C9A227"),
+    ]),
+
+    ("New Counter Stock", "#6A1B9A", [
+        item("Kamla Bed Switch", 18, "pc", "bedswitch", "kamla", "6A",
+             sub="KAMLA green boxes — MRP ₹20"),
+        item("Kamla Ultra White 5-Pin Socket", 18, "pc", "socket5", "kamla",
+             "5 PIN", sub="KAMLA green boxes — MRP ₹20"),
+        item("April Hanging Bed Switch", 13, "pc", "bedswitch", None, "6A",
+             sub="APRIL orange boxes — 20 pcs/box", est=True),
+        item("Texas Single Adaptor (2A)", 15, "pc", "multiplug", None, "2A",
+             sub="TEXAS red boxes — 30 pcs/box", est=True),
+        item("Changeover Switch (Mini Knife Type DP)", 110, "pc", "changeover",
+             None, "DP", sub="HOT SEA heavy duty mini knife type", est=True),
+        item("Power Strip / Spike Guard (6+1)", 300, "pc", "extension", None,
+             "6+1", sub="KE 6A 240V, fuse protected computer spike guard",
+             est=True),
+    ]),
 ]
 
 UNIT_WORD = {"pc": "per piece", "roll": "per roll", "pkt": "per packet",
-             "coil": "per coil"}
+             "coil": "per coil", "mtr": "per metre", "len": "per length"}
 
 
 # ------------------------------------------------------------------- PDF ----
@@ -859,6 +989,8 @@ ST_PRICE = ParagraphStyle("price", fontName="DVS-Bold", fontSize=15, leading=17,
                           textColor=RED, alignment=2)
 ST_UNIT = ParagraphStyle("unit", fontName="DVS", fontSize=7.5, leading=9,
                          textColor=GREY, alignment=2)
+ST_EST = ParagraphStyle("est", fontName="DVS-Bold", fontSize=7.5, leading=10,
+                        textColor=colors.HexColor("#B35309"))
 ST_H1 = ParagraphStyle("h1", fontName="DVS-Bold", fontSize=26, leading=32,
                        textColor=colors.white)
 ST_BODY = ParagraphStyle("body", fontName="DVS", fontSize=10, leading=15,
@@ -899,7 +1031,7 @@ def cover_flowables(total_items):
 
     info = [
         ("Shop", "Near Narendra Medical Hall, Police Para, Garia Station, Kolkata"),
-        ("Price list date", "13 July 2026 (from commercial inventory ledger)"),
+        ("Price list date", "13 July 2026 ledger + stock added 26 July 2026"),
         ("Items covered", f"{total_items} items across {len(SECTIONS)} shelf categories"),
         ("Prepared for", "Counter staff — quick rate reference for walk-in customers"),
     ]
@@ -929,8 +1061,11 @@ def cover_flowables(total_items):
         "per-piece rate printed here, even when the carton shows a pack price.",
         "Pictures are real product photographs of the brands stocked on your "
         "shelves (MAGIK, PRITAM, HEERA, RK Gold, Z4 Kabel, VELOX, Aastha and "
-        "others), sourced online; a few generic loose items use a matching "
-        "representative photo or illustration.",
+        "others), sourced online or cropped from the shop's own photos.",
+        "Lines flagged <font color='#B35309'><b>● estimated rate</b></font> "
+        "have no MRP printed on the carton, so the figure is a market estimate "
+        "— check one sale against your purchase bill and correct it (the "
+        "phone app lets you edit any price by long-pressing the item).",
     ]
     for tp in tips:
         els.append(Paragraph("•  " + tp, ParagraphStyle(
@@ -1010,6 +1145,9 @@ def build(outpath):
             desc = [Paragraph(it["name"], ST_NAME)]
             if it["sub"]:
                 desc.append(Paragraph(it["sub"], ST_SUB))
+            if it.get("est"):
+                desc.append(Paragraph("● estimated rate — confirm before "
+                                      "printing final list", ST_EST))
             price = [
                 Paragraph(f"₹ {it['price']:,}", ST_PRICE),
                 Paragraph(UNIT_WORD[it["unit"]], ST_UNIT),

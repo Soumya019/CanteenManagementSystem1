@@ -60,7 +60,7 @@ ALIASES = [
 ]
 
 UNIT_WORD = {"pc": "per piece", "roll": "per roll", "pkt": "per packet",
-             "coil": "per coil"}
+             "coil": "per coil", "mtr": "per metre", "len": "per length"}
 
 
 def keywords(name, sub, label):
@@ -115,6 +115,7 @@ def main():
                 "cat": title,
                 "kw": keywords(it["name"], it.get("sub"), it.get("label")),
                 "photo": photo,
+                "est": bool(it.get("est")),
             })
     out = os.path.join(HERE, "app", "assets", "items.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)

@@ -43,18 +43,27 @@ public class MainActivity extends Activity
     private static final int REQ_ADD = 72;
 
     private static class Item {
-        final String name, unit, cat, search, photo;
-        final int price;
+        final String name, unit, cat, search, catSearch, photo;
+        final int price;        // price actually charged (override applied)
+        final int basePrice;    // bundled price before any shop override
+        final boolean est;      // bundled rate is an unconfirmed estimate
+        final boolean edited;   // shop has set its own price
         final long id;  // 0 for built-in items, timestamp for user-added
         Item(String name, int price, String unit, String cat, String kw,
-             String photo, long id) {
+             String photo, long id, boolean est, int override) {
             this.name = name;
-            this.price = price;
+            this.basePrice = price;
+            this.price = override >= 0 ? override : price;
+            this.edited = override >= 0;
+            this.est = est;
             this.unit = unit;
             this.cat = cat;
             this.photo = photo;
             this.id = id;
-            this.search = normalize(name + " " + kw + " " + cat);
+            // the item's own words rank far above its shelf category, so
+            // "hdpe" finds the HDPE pipe rather than everything filed beside it
+            this.search = normalize(name + " " + kw);
+            this.catSearch = normalize(cat);
         }
     }
 
@@ -109,7 +118,25 @@ public class MainActivity extends Activity
     public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
                                    long rowId) {
         final Item it = shown.get(pos);
-        if (it.id == 0) return false;  // built-in items can't be deleted here
+        // built-in items can have their price corrected; shop-added items can
+        // also be deleted
+        final String[] actions = it.id == 0
+                ? new String[]{getString(R.string.action_edit_price)}
+                : new String[]{getString(R.string.action_edit_price),
+                               getString(R.string.action_delete)};
+        new AlertDialog.Builder(this)
+                .setTitle(it.name)
+                .setItems(actions, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface d, int which) {
+                        if (which == 0) editPrice(it);
+                        else confirmDelete(it);
+                    }
+                })
+                .show();
+        return true;
+    }
+
+    private void confirmDelete(final Item it) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.delete_title)
                 .setMessage(getString(R.string.delete_msg, it.name))
@@ -121,7 +148,68 @@ public class MainActivity extends Activity
                         })
                 .setNegativeButton(R.string.delete_no, null)
                 .show();
-        return true;
+    }
+
+    /** Type the price you actually charge; stored permanently on the phone. */
+    private void editPrice(final Item it) {
+        final EditText input = new EditText(this);
+        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+        input.setHint(R.string.edit_price_hint);
+        input.setText(String.valueOf(it.price));
+        input.setSelection(input.getText().length());
+        int pad = Math.round(16 * getResources().getDisplayMetrics().density);
+        input.setPadding(pad, pad, pad, pad);
+
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.edit_price_title, it.name))
+                // always show what the app shipped with, so the original is
+                // never lost even after several edits
+                .setMessage(getString(R.string.original_price,
+                        it.basePrice, it.unit))
+                .setView(input)
+                .setPositiveButton(R.string.save,
+                        new DialogInterface.OnClickListener() {
+                            @Override public void onClick(DialogInterface d, int w) {
+                                savePrice(it, input.getText().toString());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, null);
+        if (it.edited) {
+            b.setNeutralButton(R.string.reset_price,
+                    new DialogInterface.OnClickListener() {
+                        @Override public void onClick(DialogInterface d, int w) {
+                            try {
+                                PriceOverrides.clear(MainActivity.this, it.name);
+                                Toast.makeText(MainActivity.this,
+                                        R.string.price_reset,
+                                        Toast.LENGTH_SHORT).show();
+                                reload();
+                            } catch (Exception e) {
+                                Toast.makeText(MainActivity.this, "Failed: " + e,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
+        b.show();
+    }
+
+    private void savePrice(Item it, String text) {
+        int price;
+        try {
+            price = Integer.parseInt(text.trim());
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, R.string.add_need_price,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            PriceOverrides.set(this, it.name, price);
+            Toast.makeText(this, R.string.price_saved, Toast.LENGTH_SHORT).show();
+            reload();
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed: " + e, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void deleteUserItem(Item it) {
@@ -172,9 +260,12 @@ public class MainActivity extends Activity
             JSONArray arr = new JSONObject(sb.toString()).getJSONArray("items");
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject o = arr.getJSONObject(i);
-                items.add(new Item(o.getString("name"), o.getInt("price"),
+                String nm = o.getString("name");
+                items.add(new Item(nm, o.getInt("price"),
                         o.getString("unit"), o.getString("cat"),
-                        o.getString("kw"), o.optString("photo", ""), 0));
+                        o.getString("kw"), o.optString("photo", ""), 0,
+                        o.optBoolean("est", false),
+                        PriceOverrides.get(this, nm)));
             }
         } catch (Exception e) {
             Toast.makeText(this, "Failed to load price list: " + e,
@@ -185,11 +276,12 @@ public class MainActivity extends Activity
         for (int i = 0; i < user.length(); i++) {
             JSONObject o = user.optJSONObject(i);
             if (o == null) continue;
-            items.add(new Item(o.optString("name"), o.optInt("price"),
+            String nm = o.optString("name");
+            items.add(new Item(nm, o.optInt("price"),
                     o.optString("unit", "per piece"),
                     o.optString("cat", getString(R.string.my_items_cat)),
                     o.optString("kw", ""), o.optString("photo", ""),
-                    o.optLong("id")));
+                    o.optLong("id"), false, PriceOverrides.get(this, nm)));
         }
     }
 
@@ -285,6 +377,7 @@ public class MainActivity extends Activity
                 else if (t.length() >= 3 && prefixMatch(it.search, t)) {
                     score += 1; matched++;
                 }
+                else if (containsWord(it.catSearch, t)) { score += 1; matched++; }
             }
             if (matched == 0) continue;
             // full-phrase bonus, and prefer items matching every spoken word
@@ -361,7 +454,18 @@ public class MainActivity extends Activity
                     : inflater.inflate(R.layout.row_item, parent, false);
             Item it = shown.get(position);
             ((TextView) v.findViewById(R.id.item_name)).setText(it.name);
-            ((TextView) v.findViewById(R.id.item_sub)).setText(it.cat);
+            TextView sub = v.findViewById(R.id.item_sub);
+            if (it.edited) {
+                sub.setText(it.cat + "  •  " + getString(
+                        R.string.edited_note_was, it.basePrice));
+                sub.setTextColor(0xFF2E7D32);
+            } else if (it.est) {
+                sub.setText(it.cat + "  •  " + getString(R.string.est_note));
+                sub.setTextColor(0xFFB35309);
+            } else {
+                sub.setText(it.cat);
+                sub.setTextColor(0xFF5F666E);
+            }
             ((TextView) v.findViewById(R.id.item_price)).setText(
                     String.format(Locale.ROOT, "₹ %d", it.price));
             ((TextView) v.findViewById(R.id.item_unit)).setText(it.unit);
