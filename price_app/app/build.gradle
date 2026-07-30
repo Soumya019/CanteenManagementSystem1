@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Keeps the original flat layout (app/src, app/res, app/assets) so the
+// no-Gradle build_apk.sh fallback still works on the same sources.
+android {
+    namespace 'com.gariaelectric.pricelookup'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.gariaelectric.pricelookup'
+        minSdk 24
+        targetSdk 34
+        versionCode 6
+        versionName '1.5'
+
+        // phones only; dropping the x86 emulator ABIs roughly halves the
+        // APK now that the bundled OCR model ships native libraries
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+
+    signingConfigs {
+        shop {
+            storeFile file('../debug.keystore')
+            storePassword 'gariashop'
+            keyAlias 'shopkey'
+            keyPassword 'gariashop'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.shop
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // on-device text recognition: reads the brand/model printed on a box.
+    // the bundled variant keeps the model inside the APK so the shop counter
+    // needs no internet and no Play Services download.
+    implementation 'com.google.mlkit:text-recognition:16.0.1'
+}

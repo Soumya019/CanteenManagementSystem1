@@ -30,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -41,6 +42,20 @@ public class MainActivity extends Activity
 
     private static final int REQ_SPEECH = 71;
     private static final int REQ_ADD = 72;
+    private static final int REQ_CAMERA = 73;
+
+    /** Packaging boilerplate that appears on nearly every carton and would
+     *  otherwise drown out the words that actually identify the item. */
+    private static final java.util.Set<String> IGNORE_WORDS =
+            new java.util.HashSet<>(Arrays.asList(
+                    "iso", "certified", "company", "made", "in", "india",
+                    "quality", "price", "mrp", "rs", "inclusive", "incl",
+                    "of", "all", "taxes", "tax", "pcs", "pc", "piece",
+                    "quantity", "qty", "colour", "color", "size", "the",
+                    "and", "for", "with", "an", "no", "by", "manufactured",
+                    "reach", "rohs", "ce", "isi", "trust", "years", "year",
+                    "best", "super", "premium", "new", "pack", "packing",
+                    "net", "wt", "www", "com", "ltd", "pvt", "india's"));
 
     private static class Item {
         final String name, unit, cat, search, catSearch, photo;
@@ -49,6 +64,7 @@ public class MainActivity extends Activity
         final boolean est;      // bundled rate is an unconfirmed estimate
         final boolean edited;   // shop has set its own price
         final long id;  // 0 for built-in items, timestamp for user-added
+        int[] sig;      // colour fingerprint of the product photo, may be null
         Item(String name, int price, String unit, String cat, String kw,
              String photo, long id, boolean est, int override) {
             this.name = name;
@@ -91,6 +107,7 @@ public class MainActivity extends Activity
         status = findViewById(R.id.status_text);
         ListView list = findViewById(R.id.results_list);
         Button mic = findViewById(R.id.mic_button);
+        Button cam = findViewById(R.id.cam_button);
         Button add = findViewById(R.id.add_button);
 
         adapter = new ResultAdapter(this);
@@ -100,6 +117,7 @@ public class MainActivity extends Activity
 
         searchBox.addTextChangedListener(this);
         mic.setOnClickListener(this);
+        cam.setOnClickListener(this);
         add.setOnClickListener(this);
     }
 
@@ -244,9 +262,119 @@ public class MainActivity extends Activity
     public void onClick(View v) {
         if (v.getId() == R.id.add_button) {
             startAddItem();
+        } else if (v.getId() == R.id.cam_button) {
+            startCamera();
         } else {
             startSpeech();
         }
+    }
+
+    private void startCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(intent, REQ_CAMERA);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.cam_unavailable, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /** Camera returned a frame: read any printed text first, and only fall
+     *  back to colour matching when the carton showed no readable words. */
+    private void handleCameraPhoto(final Bitmap shot) {
+        status.setText(R.string.cam_reading);
+        Recognizer.readText(shot, new Recognizer.Callback() {
+            @Override public void onResult(List<String> words) {
+                List<Hit> hits = matchByWords(words);
+                if (!hits.isEmpty()) {
+                    showHits(hits, getString(R.string.cam_read_words,
+                            joinWords(words), hits.size()));
+                } else {
+                    showHits(matchByColour(shot),
+                            null);   // caption chosen inside showHits
+                }
+                shot.recycle();
+            }
+        });
+    }
+
+    private String joinWords(List<String> words) {
+        StringBuilder sb = new StringBuilder();
+        for (String w : words) {
+            if (IGNORE_WORDS.contains(w.toLowerCase(Locale.ROOT))) continue;
+            if (sb.length() > 0) sb.append(' ');
+            sb.append(w);
+            if (sb.length() > 40) break;
+        }
+        return sb.length() == 0 ? "…" : sb.toString();
+    }
+
+    /** Score every item by how many recognised words it contains. */
+    private List<Hit> matchByWords(List<String> words) {
+        List<Hit> hits = new ArrayList<>();
+        List<String> useful = new ArrayList<>();
+        for (String w : words) {
+            String t = normalize(w);
+            // keep single digits: "8" is what separates an 8-module box
+            // from a 2-module one
+            if (t.isEmpty()) continue;
+            if (t.length() < 2 && !t.matches("\\d")) continue;
+            if (IGNORE_WORDS.contains(t)) continue;
+            useful.add(t);
+        }
+        if (useful.isEmpty()) return hits;
+        for (Item it : items) {
+            int score = 0;
+            for (String t : useful) {
+                // a bare "8" or "20" off the carton is highly distinguishing
+                // between sizes, so short numeric tokens still count
+                boolean numeric = t.matches("\\d+");
+                if (containsWord(it.search, t)) {
+                    score += t.length() >= 3 ? 4 : 3;
+                } else if (it.search.contains(t)
+                        && (t.length() >= 4 || (numeric && t.length() >= 2))) {
+                    score += 2;
+                }
+            }
+            if (score > 0) hits.add(new Hit(it, score));
+        }
+        Collections.sort(hits, new HitComparator());
+        // a single weak word hit is usually noise off the packaging
+        if (hits.isEmpty() || hits.get(0).score < 4) return new ArrayList<>();
+        int top = hits.get(0).score;
+        List<Hit> keep = new ArrayList<>();
+        for (Hit h : hits) {
+            if (h.score >= Math.max(4, top / 2)) keep.add(h);
+            if (keep.size() >= 25) break;
+        }
+        return keep;
+    }
+
+    /** Fallback: rank by how similar the photo's colours are to each
+     *  product picture. Deliberately returns a browsable shortlist. */
+    private List<Hit> matchByColour(Bitmap shot) {
+        int[] sig = PhotoMatch.signature(shot);
+        List<Hit> hits = new ArrayList<>();
+        if (sig == null) return hits;
+        for (Item it : items) {
+            if (it.sig == null) continue;
+            double d = PhotoMatch.distance(sig, it.sig);
+            hits.add(new Hit(it, (int) Math.round((1.0 - d) * 1000)));
+        }
+        Collections.sort(hits, new HitComparator());
+        return hits.subList(0, Math.min(12, hits.size()));
+    }
+
+    private void showHits(List<Hit> hits, String caption) {
+        shown.clear();
+        for (Hit h : hits) shown.add(h.item);
+        if (shown.isEmpty()) {
+            status.setText(R.string.cam_no_match);
+        } else if (caption != null) {
+            status.setText(caption);
+        } else {
+            status.setText(getString(R.string.cam_colour_match, shown.size()));
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void loadItems() {
@@ -261,11 +389,19 @@ public class MainActivity extends Activity
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject o = arr.getJSONObject(i);
                 String nm = o.getString("name");
-                items.add(new Item(nm, o.getInt("price"),
+                Item it = new Item(nm, o.getInt("price"),
                         o.getString("unit"), o.getString("cat"),
                         o.getString("kw"), o.optString("photo", ""), 0,
                         o.optBoolean("est", false),
-                        PriceOverrides.get(this, nm)));
+                        PriceOverrides.get(this, nm));
+                JSONArray sa = o.optJSONArray("sig");
+                if (sa != null && sa.length() == PhotoMatch.LEN) {
+                    it.sig = new int[sa.length()];
+                    for (int k = 0; k < sa.length(); k++) {
+                        it.sig[k] = sa.optInt(k);
+                    }
+                }
+                items.add(it);
             }
         } catch (Exception e) {
             Toast.makeText(this, "Failed to load price list: " + e,
@@ -320,6 +456,23 @@ public class MainActivity extends Activity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_ADD) {
             if (resultCode == RESULT_OK) reload();
+            return;
+        }
+        if (requestCode == REQ_CAMERA) {
+            Bitmap shot = null;
+            if (resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+                Object thumb = data.getExtras().get("data");
+                if (thumb instanceof Bitmap) shot = (Bitmap) thumb;
+            }
+            if (shot == null) {
+                status.setText(R.string.cam_no_match);
+            } else {
+                // clear any stale query so the photo result is what's shown
+                updatingFromSpeech = true;
+                searchBox.setText("");
+                updatingFromSpeech = false;
+                handleCameraPhoto(shot);
+            }
             return;
         }
         if (requestCode != REQ_SPEECH) return;

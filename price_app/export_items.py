@@ -83,6 +83,60 @@ def keywords(name, sub, label):
     return f"{text} {' '.join(kws)}"
 
 
+SIG_GRID = 4          # 4x4 colour-layout cells
+SIG_HUE_BINS = 12     # coarse hue histogram
+WHITE_V, WHITE_S = 232, 26   # background cut-off (bright + unsaturated)
+
+
+def signature(path):
+    """Compact colour fingerprint of a product photo, mirrored byte-for-byte
+    by PhotoMatch.java on the phone.
+
+    Backgrounds in both the bundled shots and a snapshot taken against the
+    shop's white shelving are near-white, so those pixels are dropped and the
+    fingerprint describes the product itself: a hue histogram (survives
+    lighting changes) plus a 4x4 mean-colour grid (keeps rough layout).
+    Returns 12 + 48 = 60 ints in 0..255, or None for an all-white image.
+    """
+    im = Image.open(path).convert("RGB").resize((64, 64), Image.LANCZOS)
+    px = im.load()
+    hue = [0.0] * SIG_HUE_BINS
+    cells = [[0.0, 0.0, 0.0, 0] for _ in range(SIG_GRID * SIG_GRID)]
+    kept = 0
+    for y in range(64):
+        cy = y * SIG_GRID // 64
+        for x in range(64):
+            r, g, b = px[x, y]
+            mx, mn = max(r, g, b), min(r, g, b)
+            chroma = mx - mn
+            if mx >= WHITE_V and chroma <= WHITE_S:
+                continue                      # white/grey background
+            kept += 1
+            cell = cells[cy * SIG_GRID + x * SIG_GRID // 64]
+            cell[0] += r
+            cell[1] += g
+            cell[2] += b
+            cell[3] += 1
+            if chroma > 20:                   # only colourful pixels vote
+                if mx == r:
+                    h = (60.0 * (g - b) / chroma) % 360.0
+                elif mx == g:
+                    h = 60.0 * (b - r) / chroma + 120.0
+                else:
+                    h = 60.0 * (r - g) / chroma + 240.0
+                hue[int(h * SIG_HUE_BINS / 360.0) % SIG_HUE_BINS] += chroma
+    if kept < 40:
+        return None
+    peak = max(hue) or 1.0
+    sig = [int(round(255.0 * v / peak)) for v in hue]
+    for c in cells:
+        if c[3]:
+            sig += [int(c[0] / c[3]), int(c[1] / c[3]), int(c[2] / c[3])]
+        else:
+            sig += [255, 255, 255]
+    return sig
+
+
 def export_photo(key):
     """Convert shelf_manual/photos/<key>.png to a compact JPEG app asset.
     Returns the asset-relative path, or "" if the source is missing."""
@@ -102,12 +156,18 @@ def export_photo(key):
 def main():
     items = []
     exported = set()
+    sigs = {}
     for title, _color, sec_items in SECTIONS:
         for it in sec_items:
             key = ITEM_PHOTO.get(it["name"])
             photo = export_photo(key) if key else ""
+            sig = None
             if photo:
                 exported.add(key)
+                sig = sigs.get(key)
+                if sig is None:
+                    sig = signature(os.path.join(PHOTO_SRC, f"{key}.png"))
+                    sigs[key] = sig
             items.append({
                 "name": it["name"],
                 "price": it["price"],
@@ -116,12 +176,15 @@ def main():
                 "kw": keywords(it["name"], it.get("sub"), it.get("label")),
                 "photo": photo,
                 "est": bool(it.get("est")),
+                "sig": sig,
             })
     out = os.path.join(HERE, "app", "assets", "items.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w") as f:
         json.dump({"items": items}, f, ensure_ascii=False, indent=1)
-    print(f"wrote {out} with {len(items)} items, {len(exported)} photos")
+    n_sig = sum(1 for i in items if i["sig"])
+    print(f"wrote {out} with {len(items)} items, {len(exported)} photos, "
+          f"{n_sig} photo signatures")
 
 
 if __name__ == "__main__":

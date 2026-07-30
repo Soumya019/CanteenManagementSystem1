@@ -19,6 +19,28 @@ Since v1.1:
   searchable like any stock item, and can be removed by long-pressing
   the row.
 
+Since v1.5:
+
+- **Camera lookup** — tap 📷, photograph a carton, and the app reads the
+  printed words on it (ML Kit's bundled Latin text recogniser, fully
+  on-device) and lists the matching items with their prices. Aim at the
+  brand and the size, e.g. "AJONTA 6 NANO" or "AAVTAR PLAST 8 Modular".
+  If no text is readable it falls back to matching the photo's colours
+  against the stored product pictures and shows the closest dozen to tap.
+
+## Building
+
+The camera feature needs the ML Kit dependency, so the app is now built
+with Gradle:
+
+```bash
+export ANDROID_HOME=/opt/android-sdk
+gradle :app:assembleRelease          # -> app/build/outputs/apk/release/
+```
+
+`build_apk.sh` still works for a dependency-free build, but the APK it
+produces has no camera OCR.
+
 Since v1.3:
 
 - **46 new items** from the 26-Jul-2026 shelf photos (Ajonta PVC switch

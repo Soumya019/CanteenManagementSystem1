@@ -39,21 +39,37 @@
 
         <Button
             android:id="@+id/mic_button"
-            android:layout_width="64dp"
+            android:layout_width="54dp"
             android:layout_height="56dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="6dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="@string/mic_emoji"
-            android:textSize="24sp"
+            android:textSize="21sp"
             android:backgroundTint="#C62828"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/add_button"
-            android:layout_width="56dp"
+            android:id="@+id/cam_button"
+            android:layout_width="54dp"
             android:layout_height="56dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="6dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/cam_emoji"
+            android:textSize="21sp"
+            android:backgroundTint="#26466D"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="50dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="6dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="@string/add_button"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:backgroundTint="#2E7D32"
             android:textColor="#FFFFFF" />
     </LinearLayout>

@@ -1,2 +1,4 @@
 build/
 debug.keystore
+app/build/
+.gradle/

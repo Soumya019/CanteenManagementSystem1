@@ -3,6 +3,12 @@
     <string name="app_title">Garia Electric Prices</string>
     <string name="search_hint">Type or speak item name…</string>
     <string name="mic_emoji">🎤</string>
+    <string name="cam_emoji">📷</string>
+    <string name="cam_reading">Reading the photo…</string>
+    <string name="cam_unavailable">No camera app found on this phone</string>
+    <string name="cam_read_words">Read from photo: “%1$s” — %2$d item(s)</string>
+    <string name="cam_colour_match">No text readable — %d closest-looking items, tap the right one</string>
+    <string name="cam_no_match">Could not match that photo — try filling the frame with the printed brand name</string>
     <string name="status_idle">Tap the mic and say the item name (e.g. “9 watt bulb”)</string>
     <string name="status_listening">Listening…</string>
     <string name="status_no_match">No item matched “%s” — try another word</string>
