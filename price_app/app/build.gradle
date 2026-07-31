@@ -12,8 +12,8 @@ android {
         applicationId 'com.gariaelectric.pricelookup'
         minSdk 24
         targetSdk 34
-        versionCode 6
-        versionName '1.5'
+        versionCode 7
+        versionName '1.6'
 
         // phones only; dropping the x86 emulator ABIs roughly halves the
         // APK now that the bundled OCR model ships native libraries
@@ -52,6 +52,15 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 }
+
+// Regenerate assets/items.json (prices, photos, colour signatures) from the
+// manual's item list before every build, so the APK can never ship a stale
+// price list.
+tasks.register('exportItems', Exec) {
+    workingDir '..'
+    commandLine 'python3', 'export_items.py'
+}
+tasks.named('preBuild') { dependsOn 'exportItems' }
 
 dependencies {
     // on-device text recognition: reads the brand/model printed on a box.
