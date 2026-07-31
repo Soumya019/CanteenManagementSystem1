@@ -19,6 +19,24 @@ Since v1.1:
   searchable like any stock item, and can be removed by long-pressing
   the row.
 
+Since v1.7:
+
+- **Add what the camera saw** — every camera result now offers a green
+  *Add this item to my list* button, so an item that isn't stocked in the
+  list yet can be added straight from the shot. The form arrives
+  pre-filled: the name comes from the words on the carton, the photo is
+  the picture just taken, and the price is read off the label —
+  a pencilled `@ 03/=` counter rate is used as-is, while a printed MRP is
+  divided by the pack count and reduced by the usual 10%. When the label
+  shows no price at all the app says so and asks what to charge.
+- **Upload several photos for a new item** — *Upload Photos* now accepts a
+  multi-selection from the gallery, and photos can be added on top of the
+  one taken by the camera. Extra photos belong to the item being added;
+  the item list itself still shows one picture per row.
+- Camera captures are now full-resolution files (via FileProvider) rather
+  than the small preview thumbnail, which is what makes the text on a
+  carton readable.
+
 Since v1.5:
 
 - **Camera lookup** — tap 📷, photograph a carton, and the app reads the

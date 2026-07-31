@@ -12,6 +12,28 @@
         android:scaleType="fitCenter"
         android:contentDescription="@string/photo_desc" />
 
+    <Button
+        android:id="@+id/photo_prev"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_gravity="left|center_vertical"
+        android:background="#66000000"
+        android:text="◀"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/photo_next"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_gravity="right|center_vertical"
+        android:background="#66000000"
+        android:text="▶"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/photo_caption"
         android:layout_width="match_parent"

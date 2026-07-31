@@ -85,6 +85,19 @@
         android:textColor="#5F666E"
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/add_seen_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#2E7D32"
+        android:text="@string/add_seen"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/results_list"
         android:layout_width="match_parent"

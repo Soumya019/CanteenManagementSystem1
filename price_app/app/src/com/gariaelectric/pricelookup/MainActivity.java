@@ -59,6 +59,7 @@ public class MainActivity extends Activity
 
     private static class Item {
         final String name, unit, cat, search, catSearch, photo;
+        final List<String> photos = new ArrayList<>();   // photo + extras
         final int price;        // price actually charged (override applied)
         final int basePrice;    // bundled price before any shop override
         final boolean est;      // bundled rate is an unconfirmed estimate
@@ -94,6 +95,10 @@ public class MainActivity extends Activity
     private ResultAdapter adapter;
     private EditText searchBox;
     private TextView status;
+    private Button addSeenButton;
+    private java.io.File captureFile;
+    private String seenName = "";
+    private PriceReader seenPrice;
     private boolean updatingFromSpeech = false;
 
     @Override
@@ -109,6 +114,7 @@ public class MainActivity extends Activity
         Button mic = findViewById(R.id.mic_button);
         Button cam = findViewById(R.id.cam_button);
         Button add = findViewById(R.id.add_button);
+        addSeenButton = findViewById(R.id.add_seen_button);
 
         adapter = new ResultAdapter(this);
         list.setAdapter(adapter);
@@ -119,14 +125,16 @@ public class MainActivity extends Activity
         mic.setOnClickListener(this);
         cam.setOnClickListener(this);
         add.setOnClickListener(this);
+        addSeenButton.setOnClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long rowId) {
         Item it = shown.get(pos);
-        if (it.photo == null || it.photo.isEmpty()) return;
+        if (it.photos.isEmpty()) return;
         Intent intent = new Intent(this, PhotoViewActivity.class);
-        intent.putExtra(PhotoViewActivity.EXTRA_PHOTO, it.photo);
+        intent.putExtra(PhotoViewActivity.EXTRA_PHOTOS,
+                it.photos.toArray(new String[0]));
         intent.putExtra(PhotoViewActivity.EXTRA_CAPTION, String.format(
                 Locale.ROOT, "%s — ₹%d %s", it.name, it.price, it.unit));
         startActivity(intent);
@@ -260,7 +268,9 @@ public class MainActivity extends Activity
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.add_button) {
+        if (v.getId() == R.id.add_seen_button) {
+            addSeenItem();
+        } else if (v.getId() == R.id.add_button) {
             startAddItem();
         } else if (v.getId() == R.id.cam_button) {
             startCamera();
@@ -271,6 +281,24 @@ public class MainActivity extends Activity
 
     private void startCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        // ask for the full-size shot: a capture thumbnail is far too small
+        // for the text on a carton to be readable
+        captureFile = null;
+        try {
+            java.io.File dir = new java.io.File(getExternalFilesDir(null), "captures");
+            if (dir.exists() || dir.mkdirs()) {
+                java.io.File f = new java.io.File(dir, "shot.jpg");
+                android.net.Uri uri = androidx.core.content.FileProvider
+                        .getUriForFile(this,
+                                "com.gariaelectric.pricelookup.fileprovider", f);
+                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, uri);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                captureFile = f;
+            }
+        } catch (Exception e) {
+            captureFile = null;   // fall back to the thumbnail below
+        }
         try {
             startActivityForResult(intent, REQ_CAMERA);
         } catch (ActivityNotFoundException e) {
@@ -278,23 +306,93 @@ public class MainActivity extends Activity
         }
     }
 
+    /** Decode the capture, shrinking it enough to stay well inside memory
+     *  while leaving plenty of detail for the text recogniser. */
+    private Bitmap decodeCapture() {
+        if (captureFile == null || !captureFile.exists()
+                || captureFile.length() < 1024) {
+            return null;
+        }
+        try {
+            android.graphics.BitmapFactory.Options bounds =
+                    new android.graphics.BitmapFactory.Options();
+            bounds.inJustDecodeBounds = true;
+            android.graphics.BitmapFactory.decodeFile(
+                    captureFile.getAbsolutePath(), bounds);
+            int big = Math.max(bounds.outWidth, bounds.outHeight);
+            android.graphics.BitmapFactory.Options opts =
+                    new android.graphics.BitmapFactory.Options();
+            opts.inSampleSize = 1;
+            while (big / (opts.inSampleSize * 2) >= 1600) opts.inSampleSize *= 2;
+            return android.graphics.BitmapFactory.decodeFile(
+                    captureFile.getAbsolutePath(), opts);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     /** Camera returned a frame: read any printed text first, and only fall
-     *  back to colour matching when the carton showed no readable words. */
+     *  back to colour matching when the carton showed no readable words.
+     *  Either way the shot stays available so an unlisted item can be added
+     *  straight from it. */
     private void handleCameraPhoto(final Bitmap shot) {
         status.setText(R.string.cam_reading);
         Recognizer.readText(shot, new Recognizer.Callback() {
-            @Override public void onResult(List<String> words) {
+            @Override public void onResult(List<String> words, String raw) {
+                seenName = suggestName(words);
+                seenPrice = PriceReader.parse(raw);
                 List<Hit> hits = matchByWords(words);
                 if (!hits.isEmpty()) {
                     showHits(hits, getString(R.string.cam_read_words,
                             joinWords(words), hits.size()));
+                    addSeenButton.setText(R.string.add_seen);
                 } else {
-                    showHits(matchByColour(shot),
-                            null);   // caption chosen inside showHits
+                    showHits(matchByColour(shot), null);
+                    addSeenButton.setText(R.string.add_seen_new);
                 }
+                addSeenButton.setVisibility(View.VISIBLE);
                 shot.recycle();
             }
         });
+    }
+
+    /** First few meaningful words off the carton, e.g. "Ajonta 6 Nano". */
+    private String suggestName(List<String> words) {
+        StringBuilder sb = new StringBuilder();
+        int used = 0;
+        for (String w : words) {
+            String t = normalize(w);
+            if (t.isEmpty() || IGNORE_WORDS.contains(t)) continue;
+            if (t.length() < 2 && !t.matches("\\d")) continue;
+            if (sb.length() > 0) sb.append(' ');
+            sb.append(w.length() > 1
+                    ? w.substring(0, 1).toUpperCase(Locale.ROOT)
+                      + w.substring(1).toLowerCase(Locale.ROOT)
+                    : w);
+            if (++used >= 5 || sb.length() > 38) break;
+        }
+        return sb.toString();
+    }
+
+    /** Hand the photographed item straight to the add form, pre-filled. */
+    private void addSeenItem() {
+        ArrayList<String> cats = new ArrayList<>();
+        for (Item it : items) {
+            if (it.id == 0 && !cats.contains(it.cat)) cats.add(it.cat);
+        }
+        cats.add(getString(R.string.my_items_cat));
+        Intent intent = new Intent(this, AddItemActivity.class);
+        intent.putExtra(AddItemActivity.EXTRA_CATS, cats.toArray(new String[0]));
+        intent.putExtra(AddItemActivity.EXTRA_NAME, seenName);
+        if (seenPrice != null && seenPrice.found) {
+            intent.putExtra(AddItemActivity.EXTRA_PRICE, seenPrice.perPiece);
+            intent.putExtra(AddItemActivity.EXTRA_PRICE_BASIS, seenPrice.basis);
+        }
+        if (captureFile != null && captureFile.exists()) {
+            intent.putExtra(AddItemActivity.EXTRA_PHOTO_FILE,
+                    captureFile.getAbsolutePath());
+        }
+        startActivityForResult(intent, REQ_ADD);
     }
 
     private String joinWords(List<String> words) {
@@ -401,6 +499,7 @@ public class MainActivity extends Activity
                         it.sig[k] = sa.optInt(k);
                     }
                 }
+                if (!it.photo.isEmpty()) it.photos.add(it.photo);
                 items.add(it);
             }
         } catch (Exception e) {
@@ -413,11 +512,22 @@ public class MainActivity extends Activity
             JSONObject o = user.optJSONObject(i);
             if (o == null) continue;
             String nm = o.optString("name");
-            items.add(new Item(nm, o.optInt("price"),
+            Item ui = new Item(nm, o.optInt("price"),
                     o.optString("unit", "per piece"),
                     o.optString("cat", getString(R.string.my_items_cat)),
                     o.optString("kw", ""), o.optString("photo", ""),
-                    o.optLong("id"), false, PriceOverrides.get(this, nm)));
+                    o.optLong("id"), false, PriceOverrides.get(this, nm));
+            JSONArray pa = o.optJSONArray("photos");
+            if (pa != null) {
+                for (int k = 0; k < pa.length(); k++) {
+                    String s2 = pa.optString(k, "");
+                    if (!s2.isEmpty() && !ui.photos.contains(s2)) ui.photos.add(s2);
+                }
+            }
+            if (!ui.photo.isEmpty() && !ui.photos.contains(ui.photo)) {
+                ui.photos.add(0, ui.photo);
+            }
+            items.add(ui);
         }
     }
 
@@ -460,12 +570,16 @@ public class MainActivity extends Activity
         }
         if (requestCode == REQ_CAMERA) {
             Bitmap shot = null;
-            if (resultCode == RESULT_OK && data != null && data.getExtras() != null) {
-                Object thumb = data.getExtras().get("data");
-                if (thumb instanceof Bitmap) shot = (Bitmap) thumb;
+            if (resultCode == RESULT_OK) {
+                shot = decodeCapture();            // full-size file, preferred
+                if (shot == null && data != null && data.getExtras() != null) {
+                    Object thumb = data.getExtras().get("data");
+                    if (thumb instanceof Bitmap) shot = (Bitmap) thumb;
+                }
             }
             if (shot == null) {
-                status.setText(R.string.cam_no_match);
+                addSeenButton.setVisibility(View.GONE);
+                status.setText(R.string.status_idle);
             } else {
                 // clear any stale query so the photo result is what's shown
                 updatingFromSpeech = true;
@@ -499,6 +613,7 @@ public class MainActivity extends Activity
     }
 
     private void runSearch(String query) {
+        addSeenButton.setVisibility(View.GONE);
         shown.clear();
         String q = query.trim();
         if (q.isEmpty()) {
@@ -623,7 +738,8 @@ public class MainActivity extends Activity
                     String.format(Locale.ROOT, "₹ %d", it.price));
             ((TextView) v.findViewById(R.id.item_unit)).setText(it.unit);
             ImageView photo = v.findViewById(R.id.item_photo);
-            Bitmap thumb = Photos.thumb(getContext(), it.photo);
+            Bitmap thumb = Photos.thumb(getContext(),
+                    it.photos.isEmpty() ? null : it.photos.get(0));
             photo.setImageBitmap(thumb);  // null clears recycled bitmaps
             return v;
         }

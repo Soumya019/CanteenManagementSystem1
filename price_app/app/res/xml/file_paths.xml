@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- where the camera writes the full-size shot; app-private, so no
+         storage permission is needed and nothing lands in the gallery -->
+    <external-files-path name="captures" path="captures/" />
+    <files-path name="photos" path="photos/" />
+</paths>

@@ -25,13 +25,17 @@ import java.util.List;
 public class AddItemActivity extends Activity implements View.OnClickListener {
 
     static final String EXTRA_CATS = "cats";
+    static final String EXTRA_NAME = "name";
+    static final String EXTRA_PRICE = "price";
+    static final String EXTRA_PRICE_BASIS = "priceBasis";
+    static final String EXTRA_PHOTO_FILE = "photoFile";
     private static final int REQ_PICK = 41;
 
     private EditText nameBox, priceBox;
     private Spinner unitSpin, catSpin;
     private ImageView preview;
     private Button findBtn, saveBtn;
-    private String photoName = "";
+    private final java.util.List<String> photoNames = new java.util.ArrayList<>();
     private boolean saved = false;
     private boolean busy = false;
     private List<String> webCandidates;
@@ -59,6 +63,35 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         }
         catSpin.setAdapter(simpleAdapter(cats));
 
+        // pre-fill from a photographed carton, when we came from the camera
+        String presetName = getIntent().getStringExtra(EXTRA_NAME);
+        if (presetName != null && !presetName.isEmpty()) {
+            nameBox.setText(presetName);
+            nameBox.setSelection(nameBox.getText().length());
+        }
+        int presetPrice = getIntent().getIntExtra(EXTRA_PRICE, -1);
+        String basis = getIntent().getStringExtra(EXTRA_PRICE_BASIS);
+        if (presetPrice > 0) {
+            priceBox.setText(String.valueOf(presetPrice));
+            Toast.makeText(this, getString(R.string.price_from_label,
+                    presetPrice, basis == null ? "" : basis),
+                    Toast.LENGTH_LONG).show();
+        } else if (presetName != null) {
+            // nothing printed on the label, so ask outright
+            priceBox.requestFocus();
+            Toast.makeText(this, R.string.price_ask, Toast.LENGTH_LONG).show();
+        }
+        String shot = getIntent().getStringExtra(EXTRA_PHOTO_FILE);
+        if (shot != null) {
+            android.graphics.Bitmap b =
+                    android.graphics.BitmapFactory.decodeFile(shot);
+            String stored = PhotoImport.store(this, b);
+            if (stored != null) {
+                photoNames.add(stored);
+                preview.setImageBitmap(Photos.decode(this, stored, 640));
+            }
+        }
+
         Button pick = findViewById(R.id.add_pick_photo);
         findBtn = findViewById(R.id.add_find_photo);
         saveBtn = findViewById(R.id.add_save);
@@ -71,18 +104,16 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         // don't leave an orphan photo file if the form was abandoned
-        if (!saved && !photoName.isEmpty()) {
-            Photos.dropThumb(photoName);
-            Photos.userFile(this, photoName).delete();
+        if (!saved) {
+            for (String n : photoNames) {
+                Photos.dropThumb(n);
+                Photos.userFile(this, n).delete();
+            }
         }
     }
 
     private void replacePhoto(String newName) {
-        if (!photoName.isEmpty()) {
-            Photos.dropThumb(photoName);
-            Photos.userFile(this, photoName).delete();
-        }
-        photoName = newName == null ? "" : newName;
+        if (newName != null) photoNames.add(newName);
     }
 
     private ArrayAdapter<String> simpleAdapter(String[] values) {
@@ -98,6 +129,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         if (v.getId() == R.id.add_pick_photo) {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             startActivityForResult(
                     Intent.createChooser(intent, getString(R.string.add_pick_photo)),
                     REQ_PICK);
@@ -159,35 +191,19 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != REQ_PICK || resultCode != RESULT_OK
-                || data == null || data.getData() == null) {
+        if (requestCode != REQ_PICK || resultCode != RESULT_OK || data == null) {
             return;
         }
-        Uri uri = data.getData();
-        try {
-            // copy into app storage, downscaled and re-encoded as JPEG
-            InputStream in = getContentResolver().openInputStream(uri);
-            Bitmap bmp = BitmapFactory.decodeStream(in);
-            in.close();
-            if (bmp == null) throw new Exception("cannot read image");
-            int big = Math.max(bmp.getWidth(), bmp.getHeight());
-            if (big > 1600) {
-                float k = 1600f / big;
-                bmp = Bitmap.createScaledBitmap(bmp,
-                        Math.round(bmp.getWidth() * k),
-                        Math.round(bmp.getHeight() * k), true);
-            }
-            String name = "u_" + System.currentTimeMillis() + ".jpg";
-            FileOutputStream out = new FileOutputStream(
-                    Photos.userFile(this, name));
-            bmp.compress(Bitmap.CompressFormat.JPEG, 88, out);
-            out.close();
-            replacePhoto(name);
-            preview.setImageBitmap(bmp);
-        } catch (Exception e) {
-            Toast.makeText(this, "Photo failed: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+        java.util.List<String> got = PhotoImport.importAll(this, data);
+        if (got.isEmpty()) {
+            Toast.makeText(this, R.string.photo_failed, Toast.LENGTH_LONG).show();
+            return;
         }
+        photoNames.addAll(got);
+        preview.setImageBitmap(Photos.decode(this,
+                photoNames.get(photoNames.size() - 1), 640));
+        Toast.makeText(this, getString(R.string.photos_added,
+                photoNames.size()), Toast.LENGTH_SHORT).show();
     }
 
     private void saveItem() {
@@ -204,7 +220,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
             Toast.makeText(this, R.string.add_need_price, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (photoName.isEmpty()) {
+        if (photoNames.isEmpty()) {
             // no photo chosen: search the web for one, then save
             if (busy) return;
             busy = true;
@@ -224,7 +240,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                             saveBtn.setEnabled(true);
                             saveBtn.setText(R.string.add_save);
                             if (photo != null) {
-                                photoName = photo;
+                                photoNames.add(photo);
                             } else {
                                 Toast.makeText(AddItemActivity.this,
                                         R.string.photo_auto_missing,
@@ -249,7 +265,10 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
             o.put("unit", String.valueOf(unitSpin.getSelectedItem()));
             o.put("cat", String.valueOf(catSpin.getSelectedItem()));
             o.put("kw", name);
-            o.put("photo", photoName);
+            o.put("photo", photoNames.isEmpty() ? "" : photoNames.get(0));
+            org.json.JSONArray pa = new org.json.JSONArray();
+            for (String n : photoNames) pa.put(n);
+            o.put("photos", pa);
             UserItems.add(this, o);
             saved = true;
             Toast.makeText(this, R.string.add_saved, Toast.LENGTH_SHORT).show();

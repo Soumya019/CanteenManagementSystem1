@@ -8,7 +8,11 @@
     <string name="cam_unavailable">No camera app found on this phone</string>
     <string name="cam_read_words">Read from photo: “%1$s” — %2$d item(s)</string>
     <string name="cam_colour_match">No text readable — %d closest-looking items, tap the right one</string>
-    <string name="cam_no_match">Could not match that photo — try filling the frame with the printed brand name</string>
+    <string name="cam_no_match">Not in your list — tap below to add it</string>
+    <string name="add_seen">＋ Not the right item? Add this one to my list</string>
+    <string name="add_seen_new">＋ Add this item to my list</string>
+    <string name="price_from_label">Price read from the label: ₹%1$d (%2$s) — change it if you charge differently</string>
+    <string name="price_ask">No price on the label — please type what you charge the customer</string>
     <string name="status_idle">Tap the mic and say the item name (e.g. “9 watt bulb”)</string>
     <string name="status_listening">Listening…</string>
     <string name="status_no_match">No item matched “%s” — try another word</string>
@@ -24,8 +28,8 @@
     <string name="add_price_hint">e.g. 250</string>
     <string name="add_unit_label">Sold as</string>
     <string name="add_cat_label">Category</string>
-    <string name="add_photo_label">Photo (optional)</string>
-    <string name="add_pick_photo">Choose Photo</string>
+    <string name="add_photo_label">Photos (optional — you can upload several)</string>
+    <string name="add_pick_photo">Upload Photos</string>
     <string name="add_save">Save Item</string>
     <string name="add_need_name">Please enter the item name</string>
     <string name="add_need_price">Please enter the selling price</string>
@@ -57,4 +61,6 @@
     <string name="row_actions_title">%s</string>
     <string name="action_edit_price">Edit price</string>
     <string name="action_delete">Delete item</string>
+    <string name="photos_added">%d photo(s) attached</string>
+    <string name="photo_failed">Could not read that photo</string>
 </resources>

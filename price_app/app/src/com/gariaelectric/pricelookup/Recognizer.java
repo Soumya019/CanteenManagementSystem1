@@ -23,8 +23,9 @@ import java.util.List;
 final class Recognizer {
 
     interface Callback {
-        /** words: recognised text (may be empty). */
-        void onResult(List<String> words);
+        /** words: recognised tokens (may be empty); raw: the whole block of
+         *  text, kept intact so prices like "M.R.P. Rs. : 650/-" survive. */
+        void onResult(List<String> words, String raw);
     }
 
     private Recognizer() {}
@@ -37,13 +38,13 @@ final class Recognizer {
                 .addOnSuccessListener(new com.google.android.gms.tasks
                         .OnSuccessListener<Text>() {
                     @Override public void onSuccess(Text text) {
-                        cb.onResult(collect(text));
+                        cb.onResult(collect(text), text.getText());
                     }
                 })
                 .addOnFailureListener(new com.google.android.gms.tasks
                         .OnFailureListener() {
                     @Override public void onFailure(Exception e) {
-                        cb.onResult(new ArrayList<String>());
+                        cb.onResult(new ArrayList<String>(), "");
                     }
                 });
     }

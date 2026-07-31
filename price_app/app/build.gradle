@@ -12,8 +12,8 @@ android {
         applicationId 'com.gariaelectric.pricelookup'
         minSdk 24
         targetSdk 34
-        versionCode 7
-        versionName '1.6'
+        versionCode 8
+        versionName '1.7'
 
         // phones only; dropping the x86 emulator ABIs roughly halves the
         // APK now that the bundled OCR model ships native libraries
@@ -53,6 +53,17 @@ android {
     }
 }
 
+// ML Kit pins kotlin-stdlib-jdk7/8 1.6.21 while androidx.core pulls
+// kotlin-stdlib 1.8.22; the jdk7/jdk8 artifacts merged into the main one in
+// 1.8, so aligning all three removes the duplicate classes.
+configurations.all {
+    resolutionStrategy {
+        force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+    }
+}
+
 // Regenerate assets/items.json (prices, photos, colour signatures) from the
 // manual's item list before every build, so the APK can never ship a stale
 // price list.
@@ -67,4 +78,7 @@ dependencies {
     // the bundled variant keeps the model inside the APK so the shop counter
     // needs no internet and no Play Services download.
     implementation 'com.google.mlkit:text-recognition:16.0.1'
+    // FileProvider, so the camera can write a full-resolution photo into the
+    // app's own folder — a capture thumbnail is too small to read text from
+    implementation 'androidx.core:core:1.13.1'
 }
